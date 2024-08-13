@@ -45,9 +45,18 @@ class _HomePageState extends State<HomePage> {
     return Dismissible( // esto hace que se quite el item jalando hacia derecha o izquerda
       key        : Key(band.id),
       direction  : DismissDirection.startToEnd,
+      onDismissed: (DismissDirection direction){
+        print('id: ${ band.id}');
+
+      },
+
       background : Container(
+        padding: EdgeInsets.only(left: 8.0),
         color  :Colors.red,
-        child  : Text('Delete Band'),
+        child  : Align(
+          alignment : Alignment.centerLeft,
+          child     : Text('Eliminar banda', style: TextStyle(color: Colors.white) ),
+        )
       ),
       child : ListTile(
           leading: CircleAvatar(
