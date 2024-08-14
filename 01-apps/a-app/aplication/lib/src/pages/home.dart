@@ -86,10 +86,10 @@ class _HomePageState extends State<HomePage> {
 
     return Dismissible( // esto hace que se quite el item jalando hacia derecha o izquerda
       key        : Key(band.id),
-      direction  : DismissDirection.startToEnd,
-      onDismissed: (DismissDirection direction){
+      direction: DismissDirection.startToEnd,
+      onDismissed: ( _ ){
         print('id: ${ band.id}');
-
+        socketService.emit('delete-band', { 'id': band.id } );
       },
 
       background : Container(
@@ -112,7 +112,7 @@ class _HomePageState extends State<HomePage> {
           ),
             onTap: () {
               socketService.emit('vote-band', { 'id': band.id } );
-           } 
+            } 
           ),
     );
   }
