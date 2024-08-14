@@ -20,7 +20,8 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Material App',
-        initialRoute: 'status',
+       // initialRoute: 'status',
+       initialRoute: 'home',
         routes: getApplicationRoutes(),
         home: Scaffold(
           appBar: AppBar(
