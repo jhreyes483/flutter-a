@@ -56,7 +56,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title:
-            Text('Bandas nombre', style: TextStyle(color: Colors.black87)),
+            Text('Bandas', style: TextStyle(color: Colors.black87)),
         backgroundColor: Colors.white,
         elevation: 1,
         actions: [
@@ -110,9 +110,8 @@ class _HomePageState extends State<HomePage> {
             '${band.votes}',
             style: TextStyle(fontSize: 20),
           ),
-           onTap: () {
-            socketService.emit('vote-band', { 'id': band.id } );
-            print('end vote');
+            onTap: () {
+              socketService.emit('vote-band', { 'id': band.id } );
            } 
           ),
     );
@@ -126,7 +125,7 @@ class _HomePageState extends State<HomePage> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: Text('New band name'),
+            title: Text('Nueva banda'),
             content: TextField(controller: textController),
             actions: <Widget>[
               MaterialButton(
@@ -164,7 +163,10 @@ class _HomePageState extends State<HomePage> {
 
   void addBandToList(String name) {
     if (name.length > 1) {
-      this.bands.add( Band(id: DateTime.now().toString(), name: name  ));
+      final socketService = Provider.of<SocketService>(context, listen:  false);
+      socketService.emit('add-band', { 'name': name } );
+
+      //this.bands.add( Band(id: DateTime.now().toString(), name: name  ));
       setState(() {});
     }
    Navigator.pop(context);
