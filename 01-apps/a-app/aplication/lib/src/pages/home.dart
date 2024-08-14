@@ -13,16 +13,46 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+   List<Band> bands = [];
+
+  /*
   List<Band> bands = [
     Band(id: '1', name: 'Metalica', votes: 5),
     Band(id: '2', name: 'Queen', votes: 5),
     Band(id: '3', name: 'Heroes del silencio', votes: 5),
   ];
+  */
+
+  @override
+  void initState() {
+    final socketService = Provider.of<SocketService>(context, listen:  false);
+    socketService.socket.on('active-bands', (payload){
+
+      this.bands = ( payload as List)
+      .map( (band) => Band.fromMap(band) )
+      .toList();
+
+      bands = this.bands;
+
+      setState(() {});
+
+      print(payload);
+    });
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    final socketService = Provider.of<SocketService>(context, listen:  false);
+    socketService.socket.off('active-bands');
+    super.dispose();
+  }
+
 
   @override
   Widget build(BuildContext context) {
-    final socketService = Provider.of<SocketService>(context);
 
+    final socketService = Provider.of<SocketService>(context);
     return Scaffold(
       appBar: AppBar(
         title:
@@ -38,7 +68,7 @@ class _HomePageState extends State<HomePage> {
       ),
       body: ListView.builder(
           // aca recorre la lista
-          itemCount: bands.length,
+          itemCount: this.bands.length,
           itemBuilder: (context, i) => _banTitle(bands[i])),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
@@ -49,6 +79,8 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _banTitle(Band band) {
+    final socketService = Provider.of<SocketService>(context, listen:  false);
+
     final bandName = band?.name ?? 'Unknown';
     final inicialesBand = bandName.substring(0, 2);
 
@@ -78,10 +110,11 @@ class _HomePageState extends State<HomePage> {
             '${band.votes}',
             style: TextStyle(fontSize: 20),
           ),
-          onTap: () {
-            /// esto es como el onClick
-            print(band.name);
-          }),
+           onTap: () {
+            socketService.emit('vote-band', { 'id': band.id } );
+            print('end vote');
+           } 
+          ),
     );
   }
 

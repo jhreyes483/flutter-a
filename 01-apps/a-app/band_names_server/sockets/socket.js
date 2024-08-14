@@ -36,5 +36,11 @@ io.on('connection', client => {
         client.broadcast.emit('nuevo-mensaje',payload); // emite solo a todos menos el que lo emitio  
     })
 
+    client.on('vote-band',(payload) => {
+        bands.voteBand(payload.id);
+        io.emit('active-bands', bands.getBands());
+        console.log('vote-band', payload)
+    })
+
     
 });

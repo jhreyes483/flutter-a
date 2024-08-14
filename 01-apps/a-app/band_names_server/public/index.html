@@ -28,6 +28,10 @@
             console.log('Escucahndo nm:', payload)
         })
 
+        socket.on('vote-band',  function(payload){
+            console.log(payload)
+        });
+
         socket.on('active-bands', function(payload){
             console.clear()
             console.table( payload)
