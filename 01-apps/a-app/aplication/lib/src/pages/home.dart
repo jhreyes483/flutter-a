@@ -5,6 +5,8 @@ import 'package:aplication/src/models/band.dart';
 import 'package:aplication/src/services/socket_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:pie_chart/pie_chart.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
@@ -66,10 +68,20 @@ class _HomePageState extends State<HomePage> {
           )
         ],
       ),
-      body: ListView.builder(
-          // aca recorre la lista
-          itemCount: this.bands.length,
-          itemBuilder: (context, i) => _banTitle(bands[i])),
+      body: Column(
+        children: [
+
+          _showGraph(),
+
+          Expanded(
+            child: ListView.builder(
+            // aca recorre la lista
+              itemCount   : this.bands.length,
+              itemBuilder : (context, i) => _banTitle(bands[i])),
+          ),
+
+        ],
+      ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         elevation: 1,
@@ -110,6 +122,8 @@ class _HomePageState extends State<HomePage> {
           ),
     );
   }
+
+
 
   addNewBans() {
     final TextEditingController textController = new TextEditingController();
@@ -161,8 +175,80 @@ class _HomePageState extends State<HomePage> {
       //this.bands.add( Band(id: DateTime.now().toString(), name: name  ));
       setState(() {});
     }
-   Navigator.pop(context);
+    Navigator.pop(context);
     // cierra la alerta
+  }
+
+  Widget _showGraph(){
+    Map<String, double> dataMap = new Map();
+    bands.forEach((band) {
+      dataMap.putIfAbsent( band.name, () => band.votes.toDouble() );
+    });
+
+/*
+  dataMap = {
+    "Flutter": 5,
+    "React": 3,
+    "Xamarin": 2,
+    "Ionic": 2,
+  };*/
+
+
+  final List<Color> colorList = [
+    Colors.blue[50] ?? Colors.blue,     // Proporciona un valor predeterminado
+    Colors.blue[200] ?? Colors.blue,    // Proporciona un valor predeterminado
+    Colors.pink[50] ?? Colors.pink,     // Proporciona un valor predeterminado
+    Colors.pink[200] ?? Colors.pink,    // Proporciona un valor predeterminado
+    Colors.yellow[50] ?? Colors.yellow, // Proporciona un valor predeterminado
+    Colors.yellow[200] ?? Colors.yellow // Proporciona un valor predeterminado
+  ];
+
+  return  Container(
+    padding : EdgeInsets.only(top: 10),
+    width   : double.infinity,
+    height  : 200,
+
+    child: PieChart(
+        dataMap              : dataMap,
+        animationDuration    : Duration(milliseconds: 800),
+        chartLegendSpacing   : 32,
+        chartRadius          : MediaQuery.of(context).size.width / 3.2,
+        colorList            : colorList,
+        initialAngleInDegree : 0,
+        chartType            : ChartType.ring,
+        ringStrokeWidth      : 32,
+        centerText           : "HYBRID",
+        legendOptions  : LegendOptions(
+          showLegendsInRow  : false,
+          legendPosition    : LegendPosition.right,
+          showLegends       : true,
+          legendTextStyle   : TextStyle(
+            fontWeight      : FontWeight.bold,
+          ),
+        ),
+        chartValuesOptions : ChartValuesOptions(
+          showChartValueBackground    : false,
+          showChartValues             : true,
+          showChartValuesInPercentage : false,
+          showChartValuesOutside      : false,
+          decimalPlaces               : 1,
+        )
+        // gradientList: ---To add gradient colors---
+        // emptyColorGradient: ---Empty Color gradient---
+      ),
+  );
+/*
+    return PieChart(
+          dataMap: dataMap,
+          chartType: ChartType.ring,
+          baseChartColor: Colors.grey[50]!.withOpacity(0.15),
+          colorList: colorList,
+          chartValuesOptions: ChartValuesOptions(
+            showChartValuesInPercentage: true,
+          ),
+          totalValue: 20,
+        );
+        */
   }
 
 }
