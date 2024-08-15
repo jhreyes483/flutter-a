@@ -22,7 +22,7 @@ class LoginPage extends StatelessWidget {
               children: [
                 Logo(),
                 _From(),
-                Labels(),
+                Labels(rutaNavegar: 'register'),
                 
                 Text('Terminos y condiciones', style: TextStyle(fontWeight: FontWeight.w200))
               ],
