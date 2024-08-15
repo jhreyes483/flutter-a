@@ -13,15 +13,21 @@ class LoginPage extends StatelessWidget {
       backgroundColor: Color.fromARGB(255, 246, 245, 245),
 
       body: SafeArea(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Logo(),
-            _From(),
-            Labels(),
-            
-            Text('Terminos y condiciones', style: TextStyle(fontWeight: FontWeight.w200))
-          ],
+        child: SingleChildScrollView(
+              physics: BouncingScrollPhysics(), // efecto de salto cuando se hace socroll hacie abajo
+          child: Container(
+            height: MediaQuery.of(context).size.height * 0.9, // ocupa el 90 % de la pantalla 
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Logo(),
+                _From(),
+                Labels(),
+                
+                Text('Terminos y condiciones', style: TextStyle(fontWeight: FontWeight.w200))
+              ],
+            ),
+          ),
         ),
       )
     );
