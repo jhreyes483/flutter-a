@@ -1,5 +1,6 @@
 import 'package:chat/models/usuario.dart';
 import 'package:flutter/material.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class UsuariosPage extends StatefulWidget {
   //const UsuariosPage({super.key});
@@ -10,6 +11,8 @@ class UsuariosPage extends StatefulWidget {
 }
 
 class _UsuariosPageState extends State<UsuariosPage>{
+
+
   final usuarios = [
     Usuario(uid: '1', online: true, nombre: 'maria', email: 'maria@hotmail.com'),
     Usuario(uid: '2', online: false, nombre: 'javier', email: 'javier@hotmail.com'),
@@ -41,24 +44,30 @@ class _UsuariosPageState extends State<UsuariosPage>{
 
       body: ListView.separated(
         physics      : BouncingScrollPhysics(), // se ve igual en Ios y android
-        itemBuilder  : (_,i) =>ListTile(
-          title      : Text(usuarios[i].nombre),
-          leading    : CircleAvatar(
-            child  : Text(usuarios[i].nombre.substring(0,2) ),
-          ),
-          trailing : Container(
-            width : 10,
-            height: 10,
-            decoration: BoxDecoration( 
-              color        : usuarios[i].online ? Colors.green[300] : Colors.red,
-              borderRadius : BorderRadius.circular(100) 
-            ),
-          ),
-
-        ), 
+        itemBuilder  : (_,i) =>_usuarioListTitle( usuarios[i] ), 
         separatorBuilder : (_,i) =>Divider(), 
         itemCount        : usuarios.length
         )
     );
+  }
+
+  ListTile _usuarioListTitle(Usuario usuario ){
+    return ListTile(
+        title   : Text(usuario.nombre),
+        subtitle: Text(usuario.email),
+        leading : CircleAvatar(
+          backgroundColor: Colors.blue[100],
+          child: Text(usuario.nombre.substring(0,2) ),
+        ),
+        trailing : Container(
+          width : 10,
+          height: 10,
+          decoration: BoxDecoration( 
+            color        : usuario.online ? Colors.green[300] : Colors.red,
+            borderRadius : BorderRadius.circular(100) 
+          ),
+        ),
+
+      );
   }
 }
