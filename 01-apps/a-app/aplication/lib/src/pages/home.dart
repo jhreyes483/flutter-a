@@ -25,20 +25,20 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    final socketService = Provider.of<SocketService>(context, listen:  false);
-    socketService.socket.on('active-bands', (payload){
+    
+    final socketService = Provider.of<SocketService>(context, listen: false);
 
-      this.bands = ( payload as List)
-      .map( (band) => Band.fromMap(band) )
-      .toList();
-
-      bands = this.bands;
-
-      setState(() {});
-
-      print(payload);
-    });
+    socketService.socket.on('active-bands', _handleActiveBands );
     super.initState();
+  }
+
+  _handleActiveBands( dynamic payload ) {
+
+    this.bands = (payload as List)
+        .map( (band) => Band.fromMap(band) )
+        .toList();
+
+    setState(() {});
   }
 
   @override
@@ -87,11 +87,7 @@ class _HomePageState extends State<HomePage> {
     return Dismissible( // esto hace que se quite el item jalando hacia derecha o izquerda
       key        : Key(band.id),
       direction: DismissDirection.startToEnd,
-      onDismissed: ( _ ){
-        print('id: ${ band.id}');
-        socketService.emit('delete-band', { 'id': band.id } );
-      },
-
+      onDismissed: ( _ ) => socketService.emit('delete-band', { 'id': band.id } ),
       background : Container(
         padding: EdgeInsets.only(left: 8.0),
         color  :Colors.red,
@@ -110,9 +106,7 @@ class _HomePageState extends State<HomePage> {
             '${band.votes}',
             style: TextStyle(fontSize: 20),
           ),
-            onTap: () {
-              socketService.emit('vote-band', { 'id': band.id } );
-            } 
+            onTap: () => socketService.emit('vote-band', { 'id': band.id } )
           ),
     );
   }
@@ -123,8 +117,8 @@ class _HomePageState extends State<HomePage> {
     if (Platform.isAndroid) {
       showDialog(
         context: context,
-        builder: (context) {
-          return AlertDialog(
+        builder: (_) =>  AlertDialog(
+
             title: Text('Nueva banda'),
             content: TextField(controller: textController),
             actions: <Widget>[
@@ -134,16 +128,15 @@ class _HomePageState extends State<HomePage> {
                   textColor: Colors.blue,
                   onPressed: () => addBandToList(textController.text))
             ],
-          );
-        },
+
+          )
       );
     }
 
     if (Platform.isIOS) {
       showCupertinoDialog(
           context: context,
-          builder: (_) {
-            return CupertinoAlertDialog(
+          builder: (_) => CupertinoAlertDialog(
               title: Text('New band name:'),
               content: CupertinoTextField(
                 controller: textController,
@@ -155,8 +148,7 @@ class _HomePageState extends State<HomePage> {
                     onPressed: () => Navigator.pop(context)
                 )
               ],
-            );
-          }
+            )
       );
     }
   }
