@@ -19,7 +19,7 @@ class Labels extends StatelessWidget {
         children: [
           Text(this.texto1, style: TextStyle(color: Colors.black54, fontSize: 15, fontWeight: FontWeight.w300)),
           SizedBox(height: 10),
-          GestureDetector( // permite ponerle cualquier texto lo reconocerlo
+          GestureDetector( // permite ponerle cualquier gesto lo reconocerlo
             child: Text(this.texto2, style: TextStyle( color: Colors.blue[600], fontSize: 18, fontWeight: FontWeight.bold)),
             onTap: () {
               Navigator.pushReplacementNamed(context, this.rutaNavegar);
