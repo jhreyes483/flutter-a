@@ -218,12 +218,12 @@ class _HomePageState extends State<HomePage> {
         chartType            : ChartType.ring,
         ringStrokeWidth      : 32,
         centerText           : "HYBRID",
-        legendOptions  : LegendOptions(
-          showLegendsInRow  : false,
-          legendPosition    : LegendPosition.right,
-          showLegends       : true,
-          legendTextStyle   : TextStyle(
-            fontWeight      : FontWeight.bold,
+        legendOptions : LegendOptions(
+          showLegendsInRow : false,
+          legendPosition   : LegendPosition.right,
+          showLegends      : true,
+          legendTextStyle  : TextStyle(
+            fontWeight     : FontWeight.bold,
           ),
         ),
         chartValuesOptions : ChartValuesOptions(
