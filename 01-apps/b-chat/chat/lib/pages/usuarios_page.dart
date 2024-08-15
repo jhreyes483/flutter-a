@@ -1,7 +1,7 @@
 import 'package:chat/models/usuario.dart';
 import 'package:flutter/material.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
-
+import 'package:pull_to_refresh/pull_to_refresh.dart'; // instalar esta libreria
+/// video 63
 class UsuariosPage extends StatefulWidget {
   //const UsuariosPage({super.key});
 
@@ -11,18 +11,19 @@ class UsuariosPage extends StatefulWidget {
 }
 
 class _UsuariosPageState extends State<UsuariosPage>{
-
+RefreshController _refreshController = RefreshController(initialRefresh: false);
 
   final usuarios = [
-    Usuario(uid: '1', online: true, nombre: 'maria', email: 'maria@hotmail.com'),
-    Usuario(uid: '2', online: false, nombre: 'javier', email: 'javier@hotmail.com'),
-    Usuario(uid: '3', online: false, nombre: 'brian', email: 'brian@hotmail.com'),
-    Usuario(uid: '4', online: true, nombre: 'ingrid', email: 'ingrid@hotmail.com')
+    Usuario(uid: '1', online: true, nombre: 'Maria', email: 'maria@hotmail.com'),
+    Usuario(uid: '2', online: false, nombre: 'Javier', email: 'javier@hotmail.com'),
+    Usuario(uid: '3', online: false, nombre: 'Brian', email: 'brian@hotmail.com'),
+    Usuario(uid: '4', online: true, nombre: 'Ingrid', email: 'ingrid@hotmail.com')
   ];
 
 
   @override
   Widget build(BuildContext context) {
+      
     return Scaffold(
       appBar: AppBar(
         title: Text('Mi nombre', style: TextStyle(color: Colors.black54)),
@@ -42,13 +43,27 @@ class _UsuariosPageState extends State<UsuariosPage>{
         ],
       ),
 
-      body: ListView.separated(
-        physics      : BouncingScrollPhysics(), // se ve igual en Ios y android
-        itemBuilder  : (_,i) =>_usuarioListTitle( usuarios[i] ), 
-        separatorBuilder : (_,i) =>Divider(), 
-        itemCount        : usuarios.length
-        )
+      body: SmartRefresher( // pull refresh
+        controller     : _refreshController,
+        enablePullDown : true,
+        onRefresh      : _cargarUsuarios,
+
+        header         : WaterDropHeader(
+          complete: Icon(Icons.check, color: Colors.blue[400] ),
+          waterDropColor: const Color.fromARGB(255, 65, 163, 243),
+        ),
+        child          : _listViewUsuarios(),
+      )
     );
+  }
+
+  ListView _listViewUsuarios() {
+    return ListView.separated(
+      physics      : BouncingScrollPhysics(), // se ve igual en Ios y android
+      itemBuilder  : (_,i) =>_usuarioListTitle( usuarios[i] ), 
+      separatorBuilder : (_,i) =>Divider(), 
+      itemCount        : usuarios.length
+      );
   }
 
   ListTile _usuarioListTitle(Usuario usuario ){
@@ -69,5 +84,10 @@ class _UsuariosPageState extends State<UsuariosPage>{
         ),
 
       );
+  }
+
+  void _cargarUsuarios() async {
+    await Future.delayed(Duration(milliseconds: 1000));
+    _refreshController.refreshCompleted();
   }
 }
