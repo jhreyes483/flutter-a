@@ -18,10 +18,7 @@ const dbConnection = async () => {
     } catch (error) {
         console.error('Error al conectar con la base de datos:', error);
     }
-
     console.log('DB Online');
-
-
 }
 
 module.exports = {

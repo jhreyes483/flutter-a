@@ -4,12 +4,12 @@ require('dotenv').config();
 
 // DB Config
 const { dbConnection } =require('./database/config').dbConnection();
-/*
-mongodb+srv://javierreyes:kYX98D2rB6fAlyoW@cluster0.txgwo.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
-*/
 
 // App de Express
 const app = express();
+
+// Lectura y parseo del body
+app.use(express.json());
 
 // Node Server
 const server = require('http').createServer(app);
@@ -20,6 +20,11 @@ require('./sockets/socket');
 // Path público
 const publicPath = path.resolve( __dirname, 'public' );
 app.use( express.static( publicPath ) );
+
+
+
+// Rutas
+app.use('/api/login', require('./routes/auth'));
 
 
 server.listen( process.env.PORT, ( err ) => {
