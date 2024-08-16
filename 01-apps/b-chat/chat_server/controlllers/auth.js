@@ -1,6 +1,6 @@
 const { response } = require('express');
 const bcrypt       = require('bcryptjs');
-
+// 84
 const { validationResult } = require('express-validator');
 
 const Usuario = require('./../models/usuario');
@@ -24,13 +24,12 @@ const creaUsuario = async (req, res = response) => {
         // encriptar contraseña
         const salt       = bcrypt.genSaltSync();  
         usuario.password = bcrypt.hashSync(password, salt);
-        console.log(usuario)
 
         usuario.save(); 
 
         // Generar my JWT
         const token = await generarJWT( usuario.id );
-        
+
         res.json({
             ok : true,
             usuario,
@@ -45,9 +44,48 @@ const creaUsuario = async (req, res = response) => {
         })
         
     }
+}
 
-  
+const login = async (req, res = response) => {
+    try {
+        const { email, password } = req.body;
+
+        const usuarioDB =await  Usuario.findOne({ email: email });
+        if(!usuarioDB){
+            return res.status(404).json({
+                ok : false,
+                msg: 'Email no encontrado'
+            });
+        }
+        // validar password
+        validPassword = bcrypt.compareSync( password, usuarioDB.password );
+        if(!validPassword){
+            return res.status(400).json({
+                ok : false,
+                msg: 'Credenciales incorrectas'
+            });
+        }
+
+        // Generar my JWT
+        const token = await generarJWT( usuarioDB.id );
+
+        
+        res.json({
+            ok : true,
+            usuario: usuarioDB,
+            token
+        });
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            ok: false,
+            msg: 'error de tipo server'
+        })
+        
+    }
+
 }
 
 
-module.exports = { creaUsuario }
+module.exports = { creaUsuario, login }
