@@ -9,10 +9,6 @@ const dbConnection = async () => {
             console.log('La conexion a la base de datos de mongo se ha realizado');
 
             // Crear el servidor
-            app.listen(port, () => {
-                console.log('el servidor esta corriendo perfectamente http://localhost:3999 esta funcionando');
-            })
-
         }).catch(error => console.log(error));
     console.log('DB Online');
 }
