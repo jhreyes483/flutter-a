@@ -11,7 +11,7 @@ class UsuariosPage extends StatefulWidget {
 }
 
 class _UsuariosPageState extends State<UsuariosPage>{
-RefreshController _refreshController = RefreshController(initialRefresh: false);
+  RefreshController _refreshController = RefreshController(initialRefresh: false);
 
   final usuarios = [
     Usuario(uid: '1', online: true, nombre: 'Maria', email: 'maria@hotmail.com'),
