@@ -17,10 +17,13 @@ class ChatMessage extends StatelessWidget {
   Widget build(BuildContext context) {
     return FadeTransition( // hace la animacion del cambio de la opacidad
       opacity: animationController,
-      child: Container(
-        child: this.uid == '123'
-        ? _myMessage()
-        : _notMyMessage(),
+      child: SizeTransition( //ayuda a transformar el tamaño del widget
+        sizeFactor: CurvedAnimation(parent:  animationController, curve: Curves.easeOut),
+        child: Container(
+          child: this.uid == '123'
+          ? _myMessage()
+          : _notMyMessage(),
+        ),
       ),
     );
   }

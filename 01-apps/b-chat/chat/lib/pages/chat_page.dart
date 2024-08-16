@@ -144,7 +144,7 @@ if (texto.trim().isEmpty) return;
 
     final newAnimationController = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 2000),
+      duration: Duration(milliseconds: 500),
     );
     
     final newMessage = new ChatMessage(
