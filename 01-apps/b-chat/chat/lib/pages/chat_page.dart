@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:chat/widgets/chat_message.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -12,6 +13,13 @@ class _ChatPageState extends State<ChatPage> {
 
   final _textController = TextEditingController(); // controlador para capturar el texto del imput
   final _focusNode      = FocusNode();
+
+  List<ChatMessage> _messages = [
+    ChatMessage(texto: 'Hola mundo', uid: '123'),
+    ChatMessage(texto: 'Hola mundo', uid: '1234'),
+    ChatMessage(texto: 'Hola mundo', uid: '123'),
+    ChatMessage(texto: 'Hola mundo', uid: '1234'),
+  ];
 
   bool _estaEscribiendo = false;
   //const UsuariosPage({super.key});
@@ -41,7 +49,8 @@ class _ChatPageState extends State<ChatPage> {
             Flexible(
               child: ListView.builder(
                 physics    : BouncingScrollPhysics(),
-                itemBuilder:(_,i) => Text('$i'),
+                itemCount  : _messages.length,
+                itemBuilder:(_,i) => _messages[i],
                 reverse    : true,
               )
             ),
@@ -118,6 +127,9 @@ class _ChatPageState extends State<ChatPage> {
     _textController.clear(); // limpia la caja de texto
     _focusNode.requestFocus(); // hace que el teclado no se vaya al presionar enter
 
+    final newMessage = new ChatMessage(texto: texto, uid: '123');
+
+    _messages.insert(0,newMessage);
     setState(){
       _estaEscribiendo = false;
     }
