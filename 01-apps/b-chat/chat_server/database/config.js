@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const dbConnection = async () => {
     console.log('init db config')
-    try {
+
         mongoose.Promise = global.Promise;
         mongoose.connect(process.env.DB_CNN2, {
         }).then(() => {
@@ -14,10 +14,6 @@ const dbConnection = async () => {
             })
 
         }).catch(error => console.log(error));
-
-    } catch (error) {
-        console.error('Error al conectar con la base de datos:', error);
-    }
     console.log('DB Online');
 }
 
