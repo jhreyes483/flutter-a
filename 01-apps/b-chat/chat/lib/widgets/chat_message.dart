@@ -4,19 +4,24 @@ class ChatMessage extends StatelessWidget {
 
   final String texto;
   final String uid;
+  final AnimationController animationController;
 
   const ChatMessage({
     super.key, 
     required this.texto, 
-    required this.uid
+    required this.uid, 
+    required this.animationController
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: this.uid == '123'
-      ? _myMessage()
-      : _notMyMessage(),
+    return FadeTransition( // hace la animacion del cambio de la opacidad
+      opacity: animationController,
+      child: Container(
+        child: this.uid == '123'
+        ? _myMessage()
+        : _notMyMessage(),
+      ),
     );
   }
   

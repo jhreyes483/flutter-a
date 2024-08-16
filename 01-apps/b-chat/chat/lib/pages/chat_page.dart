@@ -9,20 +9,33 @@ class ChatPage extends StatefulWidget {
   State<ChatPage> createState() => _ChatPageState();
 }
 
-class _ChatPageState extends State<ChatPage> {
+class _ChatPageState extends State<ChatPage> with TickerProviderStateMixin {
 
   final _textController = TextEditingController(); // controlador para capturar el texto del imput
   final _focusNode      = FocusNode();
 
+  List<ChatMessage> _messages = [];
+
+/*
   List<ChatMessage> _messages = [
     ChatMessage(texto: 'Hola mundo', uid: '123'),
     ChatMessage(texto: 'Hola mundo', uid: '1234'),
     ChatMessage(texto: 'Hola mundo', uid: '123'),
     ChatMessage(texto: 'Hola mundo', uid: '1234'),
   ];
+*/
+  List<AnimationController> _animationControllers = [];
 
   bool _estaEscribiendo = false;
   //const UsuariosPage({super.key});
+
+@override
+void dispose() {
+  for (var controller in _animationControllers) {
+    controller.dispose();
+  }
+  super.dispose();
+}
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -123,16 +136,34 @@ class _ChatPageState extends State<ChatPage> {
 
 
   _handleSubmit(String texto){
+if (texto.trim().isEmpty) return;
+
     print(texto);    
     _textController.clear(); // limpia la caja de texto
     _focusNode.requestFocus(); // hace que el teclado no se vaya al presionar enter
 
-    final newMessage = new ChatMessage(texto: texto, uid: '123');
+    final newAnimationController = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 2000),
+    );
+    
+    final newMessage = new ChatMessage(
+      texto              : texto, 
+      uid                : '123', 
+      animationController : newAnimationController
+    );
 
-    _messages.insert(0,newMessage);
-    setState(){
+    setState(() {
+      _messages.insert(0, newMessage);
+      _animationControllers.add(newAnimationController);
       _estaEscribiendo = false;
-    }
+    });
+
+    newAnimationController.forward().then((_) {
+      // Remove the controller once the animation is completed
+      _animationControllers.remove(newAnimationController);
+      newAnimationController.dispose();
+    });
   }
 }
 
