@@ -2,6 +2,12 @@ const express = require('express');
 const path = require('path');
 require('dotenv').config();
 
+// DB Config
+const { dbConnection } =require('./database/config').dbConnection();
+/*
+mongodb+srv://javierreyes:kYX98D2rB6fAlyoW@cluster0.txgwo.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+*/
+
 // App de Express
 const app = express();
 
