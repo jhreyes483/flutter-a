@@ -12,6 +12,8 @@ class _ChatPageState extends State<ChatPage> {
 
   final _textController = TextEditingController(); // controlador para capturar el texto del imput
   final _focusNode      = FocusNode();
+
+  bool _estaEscribiendo = false;
   //const UsuariosPage({super.key});
   @override
   Widget build(BuildContext context) {
@@ -67,6 +69,13 @@ class _ChatPageState extends State<ChatPage> {
                 controller   : _textController,
                 onSubmitted  : _handleSubmit,
                 onChanged    : (String texto){
+                setState(() {
+                    if( texto.trim().length > 0 ){
+                      _estaEscribiendo = true;
+                    }else{
+                      _estaEscribiendo = false;
+                    }
+                  });
                 },
                 focusNode: _focusNode,
                 decoration : InputDecoration.collapsed( // quita la linea de abajo del input
@@ -79,14 +88,20 @@ class _ChatPageState extends State<ChatPage> {
               margin: EdgeInsets.symmetric(horizontal:  4.0),
               child : Platform.isIOS // seleccion de Ios o Android
               ? CupertinoButton(
-                child: Text('Enviar'), 
-                onPressed: (){}
+                child     : Text('Enviar'), 
+                onPressed : _estaEscribiendo ? () =>  _handleSubmit(_textController.text) : null
                 ) 
               : Container(
                 margin: EdgeInsets.symmetric(horizontal: 4.0),
-                child: IconButton(
-                  icon: Icon(Icons.send, color: Colors.blue[400]), 
-                  onPressed: () {  },
+                child: IconTheme( // cuando se desabilita el boton queda gris
+                  data: IconThemeData( color: Colors.blue[400] ),
+                  child: IconButton(
+                    highlightColor : Colors.transparent, // color que resalta cuando hace click
+                    splashColor    : Colors.transparent, // color que resalta cuando hace click
+                    icon           : Icon(Icons.send), 
+                    onPressed      : _estaEscribiendo ? () =>  _handleSubmit(_textController.text) : null
+                    ,
+                  ),
                 ),
               ),
             )
@@ -99,9 +114,13 @@ class _ChatPageState extends State<ChatPage> {
 
 
   _handleSubmit(String texto){
-    print(texto);
+    print(texto);    
     _textController.clear(); // limpia la caja de texto
     _focusNode.requestFocus(); // hace que el teclado no se vaya al presionar enter
+
+    setState(){
+      _estaEscribiendo = false;
+    }
   }
 }
 
