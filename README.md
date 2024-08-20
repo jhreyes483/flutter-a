@@ -13,6 +13,8 @@ https://pub.dev/packages/pie_chart
 https://pub.dev/packages/pull_to_refresh
 - provider
 https://pub.dev/packages/provider
+- peticiones http
+https://pub.dev/packages/http
 
 - intalar dependencias
 flutterpackages get
