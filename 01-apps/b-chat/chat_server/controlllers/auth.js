@@ -88,13 +88,31 @@ const login = async (req, res = response) => {
 
 
 const renewToken = async (req, res = response) => {
+    // 86
+    const uid   = req.uid;
+    const token = await generarJWT(uid);
 
+    try{
 
-    res.json({
-        ok: true,
-        uid: req.uid,
-    });
+        const usuario =await  Usuario.findById(uid);
+        if( !usuario ){
+            return res.status(401).json({
+                ok:false,
+                msg:'Usuario no existe'
+            })
+        }
+        res.json({
+            ok: true,
+            usuario,
+            token
+        });
 
+    }catch(err){
+        res.status(500).json({
+            ok: false,
+            msg: 'error de tipo server'
+        })
+    }
 }
 
 module.exports = { creaUsuario, login,  renewToken }
