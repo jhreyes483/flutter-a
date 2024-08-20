@@ -3,7 +3,7 @@ const bcrypt       = require('bcryptjs');
 // 84
 const { validationResult } = require('express-validator');
 
-const Usuario = require('./../models/usuario');
+const Usuario        = require('./../models/usuario');
 const { generarJWT } = require('../helpers/jwt');
 
 const creaUsuario = async (req, res = response) => {
@@ -85,7 +85,6 @@ const login = async (req, res = response) => {
     }
 
 }
-
 
 const renewToken = async (req, res = response) => {
     // 86
