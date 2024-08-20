@@ -1,6 +1,7 @@
 import 'package:chat/models/usuario.dart';
 import 'package:chat/services/auth_service.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart'; // instalar esta libreria
 /// video 63
 class UsuariosPage extends StatefulWidget {
@@ -24,10 +25,12 @@ class _UsuariosPageState extends State<UsuariosPage>{
 
   @override
   Widget build(BuildContext context) {
-      
+    final authService = Provider.of<AuthService>(context);
+    final usuario = authService.usuario;
+
     return Scaffold(
       appBar: AppBar(
-        title: Text('Mi nombre', style: TextStyle(color: Colors.black54)),
+        title: Text(usuario?.nombre ?? 'Usuario', style: TextStyle(color: Colors.black54)),
         elevation       : 1,
         backgroundColor : Colors.white,
         leading         : IconButton(
