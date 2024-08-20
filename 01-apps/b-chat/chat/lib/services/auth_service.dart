@@ -60,7 +60,7 @@ class AuthService with  ChangeNotifier {
         'x-token': token,
       }
     );
-    print(resp.body);
+
     if( resp.statusCode == 200){
       final loginResponse = loginResponseFromJson( resp.body );
       this.usuario       = loginResponse.usuario;

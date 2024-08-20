@@ -1,4 +1,5 @@
 import 'package:chat/models/usuario.dart';
+import 'package:chat/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart'; // instalar esta libreria
 /// video 63
@@ -31,7 +32,10 @@ class _UsuariosPageState extends State<UsuariosPage>{
         backgroundColor : Colors.white,
         leading         : IconButton(
           icon          : Icon(Icons.exit_to_app, color: Colors.black54), 
-          onPressed: () {  },
+          onPressed: () { 
+            AuthService.deleteToken();
+            Navigator.pushReplacementNamed(context, 'login');
+          },
         ),
         actions: [
           Container(
