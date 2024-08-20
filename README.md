@@ -15,6 +15,8 @@ https://pub.dev/packages/pull_to_refresh
 https://pub.dev/packages/provider
 - peticiones http
 https://pub.dev/packages/http
+- mapear interfaces
+https://quicktype.io/
 
 - intalar dependencias
 flutterpackages get

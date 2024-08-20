@@ -53,6 +53,8 @@ class __FromState extends State<_From> {
 
   @override
   Widget build(BuildContext context) {
+
+    final authService = Provider.of<AuthService>(context);
     return Container(
       margin: EdgeInsets.only(top: 40),
       padding: EdgeInsets.symmetric( horizontal: 50),
@@ -73,16 +75,22 @@ class __FromState extends State<_From> {
           ),
 
           BotonAzul(
-            text      : 'Ingrese', 
-            onPressed : (){
-              print('Texto de botón');
-              print('Email: ${emailCtrl.text}');
-              print('Contraseña: ${passCtrl.text}');
-
-              final authService = Provider.of<AuthService>(context, listen: false);
-              authService.login(emailCtrl.text, passCtrl.text);
-            }
-          )
+            text: 'Ingrese',
+            onPressed: authService.autenticando
+                ? null
+                : () async {
+                    FocusScope.of(context).unfocus(); // Desenfoca el teclado
+                    final email    = emailCtrl.text.trim();
+                    final password = passCtrl.text.trim();
+                    final loginOk  = await authService.login(email, password);
+                    if (loginOk) {
+                      Navigator.pushReplacementNamed(context, 'usuarios');
+                    } else {
+                      // Mostrar alerta de error
+                     // mostrarAlerta(context, 'Login incorrecto', 'Revise sus credenciales nuevamente');
+                    }
+                  },
+          ),
         ],
       ),
     );
