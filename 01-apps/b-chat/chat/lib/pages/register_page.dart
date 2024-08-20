@@ -1,8 +1,11 @@
+import 'package:chat/helpers/mostrar_alerta.dart';
+import 'package:chat/services/auth_service.dart';
 import 'package:chat/widgets/boton_azul.dart';
 import 'package:chat/widgets/custom_input.dart';
 import 'package:chat/widgets/labels.dart';
 import 'package:chat/widgets/logo.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class RegisterPage extends StatelessWidget {
   //const UsuariosPage({super.key});
@@ -50,6 +53,9 @@ class __FromState extends State<_From> {
 
   @override
   Widget build(BuildContext context) {
+
+    final authService = Provider.of<AuthService>(context);
+
     return Container(
       margin: EdgeInsets.only(top: 40),
       padding: EdgeInsets.symmetric( horizontal: 50),
@@ -57,13 +63,13 @@ class __FromState extends State<_From> {
       child: Column(
         children: [
           CustomInput(
-            icon           : Icons.perm_identity, 
+            icon           : Icons.mail_outline, 
             placeholder    : 'Correo', 
             keyboardType   : TextInputType.emailAddress,
             textController : emailCtrl, 
           ),
           CustomInput(
-            icon           : Icons.mail_outline, 
+            icon           : Icons.perm_identity, 
             placeholder    : 'Nombre', 
             keyboardType   : TextInputType.emailAddress,
             textController : nombreCtrl, 
@@ -76,12 +82,24 @@ class __FromState extends State<_From> {
           ),
 
           BotonAzul(
-            text      : 'Ingrese', 
-            onPressed : (){
+            text      : 'Crear cuenta', 
+            onPressed : authService.autenticando ? null : () async {
+            final email    = emailCtrl.text.trim();
+            final password = passCtrl.text.trim();
+            final nombre   = nombreCtrl.text.trim();
+
+            final registroOk  = await authService.register(email, nombre, password);
+            if (registroOk is bool && registroOk ) {
+              Navigator.pushReplacementNamed(context, 'login');
+            } else {
+              // Mostrar alerta de error
+              mostrarAlerta(context, 'Error al registrar', registroOk);
+            }
+
               print('Texto de botón');
-              print('Email: ${emailCtrl.text}');
-              print('Contraseña: ${passCtrl.text}');
-              print('nombre: ${nombreCtrl.text}');
+              print('Email: ${email}');
+              print('Contraseña: ${password}');
+              print('nombre: ${nombre}');
             }
           )
         ],

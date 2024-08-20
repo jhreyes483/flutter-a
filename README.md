@@ -17,6 +17,8 @@ https://pub.dev/packages/provider
 https://pub.dev/packages/http
 - mapear interfaces
 https://quicktype.io/
+- storage 
+https://pub.dev/packages/flutter_secure_storage/install
 
 - intalar dependencias
 flutterpackages get

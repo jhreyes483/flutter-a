@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:ffi';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 
 import '../global/environment.dart';
@@ -11,6 +12,8 @@ class AuthService with  ChangeNotifier {
 
   Usuario? usuario;
   bool _autenticando = false;
+  // Create storage
+  final _storage = new FlutterSecureStorage();
 
 
   bool get autenticando => this._autenticando;
@@ -38,12 +41,68 @@ class AuthService with  ChangeNotifier {
         final loginResponse = loginResponseFromJson( resp.body );
         this.usuario       = loginResponse.usuario;
         this.autenticando =false;
+
+        await this._guardarToken(loginResponse.token);
         return true;
     }else{
       this.autenticando =false;
       return false;
     }
 
+  }
+
+
+  Future register(String email, String nombre,String password) async {
+    final data = {
+      'email'    : email,
+      'nombre'   : nombre,
+      'password' : password
+    };
+    final uri   = Uri.parse('${Environment.apiUrl}/login/new');
+    final resp  = await http.post(uri,
+      body: jsonEncode(data),
+      headers: {
+        'Content-Type' : 'application/json'
+      }
+    );
+
+    print(resp.body);
+    this.autenticando = false;
+    if( resp.statusCode == 200){
+        return true;
+    }else{
+      final respBody = jsonDecode(resp.body);
+      return respBody['msg'];
+    }
+
+  }
+
+  // Getter del token de forma estática
+  static Future<String> getToken() async{
+      final _storage = new FlutterSecureStorage();
+      final token    = await _storage.read(key: 'token');
+      return token??'';
+  }
+
+  static Future<void> deleteToken() async{
+      final _storage = new FlutterSecureStorage();
+      await _storage.delete(key: 'token');
+  } 
+
+
+
+
+  Future _guardarToken( String token) async{
+    return await _storage.write(
+      key: 'token', 
+      value: token
+    );
+  }
+
+  Future logout( String token) async{
+    return await _storage.delete(
+      key: 'token', 
+    );
   }
 
 }

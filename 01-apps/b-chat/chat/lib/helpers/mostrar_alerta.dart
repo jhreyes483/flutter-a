@@ -21,7 +21,6 @@ mostrarAlerta( BuildContext context, String titulo, String subtitulo){
           )
         ]
       ));
-
   }
 
   showCupertinoDialog(
