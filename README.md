@@ -11,6 +11,8 @@ https://docs.flutter.dev/ui/widgets/basics
 https://pub.dev/packages/pie_chart
 - pull to refresh
 https://pub.dev/packages/pull_to_refresh
+- provider
+https://pub.dev/packages/provider
 
 - intalar dependencias
 flutterpackages get
