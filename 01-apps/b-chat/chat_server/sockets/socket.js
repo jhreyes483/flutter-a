@@ -26,6 +26,16 @@ io.on('connection', client => {
         return client.disconnect();
     }
     usuarioConectado(uid);
+
+    // Ingresar al usaurio a una sala en particular
+
+    // sala global, client.id, 66c4f49938b1e01c12d51da3
+
+    // unir a la sala
+    client.join(uid); 
+    //client.to(uid).emit('');
+
+
     
     console.log('cliente autenticado')
 

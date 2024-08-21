@@ -16,6 +16,9 @@ class _ChatPageState extends State<ChatPage> with TickerProviderStateMixin {
 
   final _textController = TextEditingController(); // controlador para capturar el texto del imput
   final _focusNode      = FocusNode();
+  bool _isInitialized   = false;
+  
+  late final ChatService chatService;
 
   List<ChatMessage> _messages = [];
 
@@ -32,17 +35,40 @@ class _ChatPageState extends State<ChatPage> with TickerProviderStateMixin {
   bool _estaEscribiendo = false;
   //const UsuariosPage({super.key});
 
-@override
-void dispose() {
-  for (var controller in _animationControllers) {
-    controller.dispose();
+  @override
+void initState() { 
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) { // valida que este listo
+      chatService = Provider.of<ChatService>(context, listen: false);
+      //this.chatService    = Provider.of<ChatService>(context, listen: false);
+      // this.socketService = Provider.of<SocketService>(context, listen: false);
+      // this.authService   = Provider.of<AuthService>(context, listen: false);
+      setState(() {
+        _isInitialized = true; // Mark as initialized
+      });
+    });
+
+   // this.socketService.socket.on('mensaje-personal', _escucharMensaje );
+
+   // _cargarHistorial( this.chatService.usuarioPara.uid );
+  } 
+
+  @override
+  void dispose() {
+    for (var controller in _animationControllers) {
+      controller.dispose();
+    }
+    super.dispose();
   }
-  super.dispose();
-}
+
   @override
   Widget build(BuildContext context) {
-    final chatService = Provider.of<ChatService>(context);
+    if (!_isInitialized) {
+      return Center(child: CircularProgressIndicator()); // Muestra carga mietras se inicia el componente
+    }
     final usuarioPara = chatService.usuarioPara;
+
+
 
     return Scaffold(
       appBar: AppBar(
