@@ -1,3 +1,4 @@
+import 'package:chat/services/chat_service.dart';
 import 'package:chat/services/usuarios_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -104,6 +105,12 @@ class _UsuariosPageState extends State<UsuariosPage>{
             borderRadius : BorderRadius.circular(100) 
           ),
         ),
+        onTap: (){
+          final chatService = Provider.of<ChatService>(context, listen: false /* escucha los cambios cuando susede algo */);
+          chatService.usuarioPara = usuario;
+
+          Navigator.pushNamed(context, 'chat');
+        },
 
       );
   }

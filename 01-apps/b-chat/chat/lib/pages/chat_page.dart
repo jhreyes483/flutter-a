@@ -1,8 +1,11 @@
 import 'dart:io';
 
+import 'package:chat/models/usuario.dart';
+import 'package:chat/services/chat_service.dart';
 import 'package:chat/widgets/chat_message.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ChatPage extends StatefulWidget {
   @override
@@ -38,18 +41,21 @@ void dispose() {
 }
   @override
   Widget build(BuildContext context) {
+    final chatService = Provider.of<ChatService>(context);
+    final usuarioPara = chatService.usuarioPara;
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: Column(
           children: [
             CircleAvatar(
-              child           : Text('Ja', style: TextStyle(fontSize: 12, color: Color.fromARGB(255, 39, 114, 205)) ),
+              child           : Text(usuarioPara?.nombre?.substring(0, 2) ?? '' , style: TextStyle(fontSize: 12, color: Color.fromARGB(255, 39, 114, 205)) ),
               backgroundColor : Colors.blue[100],
               maxRadius       : 14,
             ),
             SizedBox(height: 3),
-            Text('Javier Reyes', style : TextStyle(color : Colors.black87,  fontSize: 12))
+            Text(usuarioPara?.nombre ?? '', style : TextStyle(color : Colors.black87,  fontSize: 12))
           ],
         ),
         centerTitle: true,
