@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:chat/services/socket_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -17,6 +20,7 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 246, 245, 245),
 
@@ -58,7 +62,8 @@ class __FromState extends State<_From> {
   @override
   Widget build(BuildContext context) {
 
-    final authService = Provider.of<AuthService>(context);
+    final authService   = Provider.of<AuthService>(context);
+    final socketService = Provider.of<SocketService>(context);
     return Container(
       margin: EdgeInsets.only(top: 40),
       padding: EdgeInsets.symmetric( horizontal: 50),
@@ -88,6 +93,7 @@ class __FromState extends State<_From> {
                     final password = passCtrl.text.trim();
                     final loginOk  = await authService.login(email, password);
                     if (loginOk) {
+                      socketService.connect();
                       Navigator.pushReplacementNamed(context, 'usuarios');
                     } else {
                       // Mostrar alerta de error

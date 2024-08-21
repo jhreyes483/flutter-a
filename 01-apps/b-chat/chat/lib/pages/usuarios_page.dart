@@ -1,7 +1,9 @@
-import 'package:chat/models/usuario.dart';
-import 'package:chat/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import 'package:chat/models/usuario.dart';
+import 'package:chat/services/auth_service.dart';
+import 'package:chat/services/socket_service.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart'; // instalar esta libreria
 /// video 63
 class UsuariosPage extends StatefulWidget {
@@ -25,7 +27,9 @@ class _UsuariosPageState extends State<UsuariosPage>{
 
   @override
   Widget build(BuildContext context) {
-    final authService = Provider.of<AuthService>(context);
+    final authService   = Provider.of<AuthService>(context);
+    final socketService = Provider.of<SocketService>(context);
+
     final usuario = authService.usuario;
 
     return Scaffold(
@@ -36,6 +40,7 @@ class _UsuariosPageState extends State<UsuariosPage>{
         leading         : IconButton(
           icon          : Icon(Icons.exit_to_app, color: Colors.black54), 
           onPressed: () { 
+            socketService.disconnect();
             AuthService.deleteToken();
             Navigator.pushReplacementNamed(context, 'login');
           },
@@ -43,9 +48,9 @@ class _UsuariosPageState extends State<UsuariosPage>{
         actions: [
           Container(
             margin : EdgeInsets.only(right: 10),
-            child  : 
-            //Icon(Icons.check_circle, color: Colors.blue[400] ) 
-            Icon(Icons.offline_bolt, color: Colors.red )
+            child  : socketService.serverStatus == ServerStatus.Online 
+            ? Icon(Icons.check_circle, color: Colors.blue[400] ) 
+            : Icon(Icons.offline_bolt, color: Colors.red )
           )
         ],
       ),
