@@ -1,6 +1,6 @@
 const { io } = require('../index');
 const { comprobarJWT } = require('../helpers/jwt');
-const { usuarioConectado, usuarioDesconectado } = require('../controlllers/socket');
+const { usuarioConectado, usuarioDesconectado, grabarMensaje } = require('../controlllers/socket');
 /*
 const Bands  = require('../models/bands');
 const Band   = require('../models/band');
@@ -37,9 +37,10 @@ io.on('connection', client => {
     // unir a la sala
     client.join(uid); 
     // escuchar del cliente el mensaje peronal
-    client.on('mensaje-personal', (payload) => {
+    client.on('mensaje-personal', async (payload) => {
         console.log('mensaje para',payload.para,'payload',payload)
 
+        await grabarMensaje(payload);
         io.to(payload.para).emit('mensaje-personal', payload);
     })
     //client.to(uid).emit('');

@@ -66,8 +66,6 @@ class _ChatPageState extends State<ChatPage> with TickerProviderStateMixin {
 
   void _escucarMensaje(dynamic payload){
     print('tengo mensaje!--------------------------------------- $payload');
-    
-
     final newAnimationController = AnimationController(
       vsync: this,
       duration: Duration(milliseconds: 900),
@@ -97,6 +95,7 @@ class _ChatPageState extends State<ChatPage> with TickerProviderStateMixin {
     for (var controller in _animationControllers) {
       controller.dispose();
     }
+    this.socketService.socket.off('mensaje-personal', _escucarMensaje ); // me desconecto del socket cuando cierro la pantalla
     super.dispose();
   }
 
