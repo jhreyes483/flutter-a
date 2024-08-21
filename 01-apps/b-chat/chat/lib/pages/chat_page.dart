@@ -2,6 +2,7 @@ import 'dart:io';
 
 
 
+import 'package:chat/models/mensajes_response.dart';
 import 'package:chat/services/auth_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -53,6 +54,7 @@ class _ChatPageState extends State<ChatPage> with TickerProviderStateMixin {
       this.socketService = Provider.of<SocketService>(context, listen: false);
       this.authService   = Provider.of<AuthService>(context, listen: false);
       this.socketService.socket.on('mensaje-personal', _escucarMensaje );
+      _cargarHistorial( this.chatService.usuarioPara?.uid??'' );
 
       setState(() {
         _isInitialized = true; // Mark as initialized
@@ -61,8 +63,36 @@ class _ChatPageState extends State<ChatPage> with TickerProviderStateMixin {
 // 66bfc329d90e698f05729fa3
 
     // this.socketService.socket.on('mensaje-personal', _escucharMensaje );
-    // _cargarHistorial( this.chatService.usuarioPara.uid );
+    // 
   } 
+
+  void _cargarHistorial  (String uid) async {
+    List<Mensaje> chat = await this.chatService.getChat(uid);
+    final newAnimationController = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 200),
+    );
+
+    // Mapea los mensajes a ChatMessage y empieza la animación
+    final history = chat.map((m) {
+      // Crea un nuevo ChatMessage
+      final chatMessage = ChatMessage(
+        texto              : m.mensaje,
+        uid                : m.de,
+        animationController: newAnimationController,
+      );
+
+      // Inicia la animación para este ChatMessage
+      chatMessage.animationController.forward();
+
+    return chatMessage;
+  }).toList(); // Agrega toList() para convertir el iterable en una lista
+
+  // Actualiza el estado del widget con los nuevos mensajes
+  setState(() {
+    _messages.insertAll(0, history);
+  });
+  }
 
   void _escucarMensaje(dynamic payload){
     print('tengo mensaje!--------------------------------------- $payload');

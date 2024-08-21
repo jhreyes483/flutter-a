@@ -12,8 +12,6 @@ const obtenerChat = async (req, res) => {
     .sort({ createdAt: 'desc' })
     .limit(30);
 
-
-
     res.json({
         ok: true,
         miId: miId,
@@ -21,9 +19,8 @@ const obtenerChat = async (req, res) => {
         mensajeDe ,
         msg: 'Hola mensajes'
     });    
-
-
 }
+
 module.exports = {
     obtenerChat
 }
