@@ -17,8 +17,8 @@ class ChatMessage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-     
-     AuthService authService   = Provider.of<AuthService>(context, listen: false);
+    
+    AuthService authService   = Provider.of<AuthService>(context, listen: false);
 
      // const id = authService.usuario?.uid??'';
      // print('my id ' + this.uid);

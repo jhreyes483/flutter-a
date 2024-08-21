@@ -60,10 +60,6 @@ class _ChatPageState extends State<ChatPage> with TickerProviderStateMixin {
         _isInitialized = true; // Mark as initialized
       });
     });
-// 66bfc329d90e698f05729fa3
-
-    // this.socketService.socket.on('mensaje-personal', _escucharMensaje );
-    // 
   } 
 
   void _cargarHistorial  (String uid) async {
