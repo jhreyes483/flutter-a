@@ -1,6 +1,6 @@
 const { io } = require('../index');
 const { comprobarJWT } = require('../helpers/jwt');
-
+const { usuarioConectado, usuarioDesconectado } = require('../controlllers/socket');
 /*
 const Bands  = require('../models/bands');
 const Band   = require('../models/band');
@@ -25,11 +25,15 @@ io.on('connection', client => {
     if(!valido){
         return client.disconnect();
     }
+    usuarioConectado(uid);
+    
+    console.log('cliente autenticado')
 
     client.on('disconnect', () => {
         console.log('Cliente desconectado');
+        usuarioDesconectado(uid);
     });
-    console.log('cliente autenticado')
+
 
 /*
     client.emit('active-bands', bands.getBands())
