@@ -1,11 +1,18 @@
 import 'dart:io';
 
-import 'package:chat/models/usuario.dart';
-import 'package:chat/services/chat_service.dart';
-import 'package:chat/widgets/chat_message.dart';
+
+
+import 'package:chat/services/auth_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import 'package:chat/services/socket_service.dart';
+import 'package:chat/services/chat_service.dart';
+import 'package:chat/widgets/chat_message.dart';
+import 'package:chat/models/usuario.dart';
+
+
 
 class ChatPage extends StatefulWidget {
   @override
@@ -18,7 +25,9 @@ class _ChatPageState extends State<ChatPage> with TickerProviderStateMixin {
   final _focusNode      = FocusNode();
   bool _isInitialized   = false;
   
-  late final ChatService chatService;
+  late final ChatService   chatService;
+  late final SocketService socketService;
+  late final AuthService   authService;
 
   List<ChatMessage> _messages = [];
 
@@ -33,25 +42,55 @@ class _ChatPageState extends State<ChatPage> with TickerProviderStateMixin {
   List<AnimationController> _animationControllers = [];
 
   bool _estaEscribiendo = false;
-  //const UsuariosPage({super.key});
+
 
   @override
-void initState() { 
+  void initState() { 
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) { // valida que este listo
-      chatService = Provider.of<ChatService>(context, listen: false);
-      //this.chatService    = Provider.of<ChatService>(context, listen: false);
-      // this.socketService = Provider.of<SocketService>(context, listen: false);
-      // this.authService   = Provider.of<AuthService>(context, listen: false);
+
+      this.chatService   = Provider.of<ChatService>(context, listen: false);
+      this.socketService = Provider.of<SocketService>(context, listen: false);
+      this.authService   = Provider.of<AuthService>(context, listen: false);
+      this.socketService.socket.on('mensaje-personal', _escucarMensaje );
+
       setState(() {
         _isInitialized = true; // Mark as initialized
       });
     });
+// 66bfc329d90e698f05729fa3
 
-   // this.socketService.socket.on('mensaje-personal', _escucharMensaje );
-
-   // _cargarHistorial( this.chatService.usuarioPara.uid );
+    // this.socketService.socket.on('mensaje-personal', _escucharMensaje );
+    // _cargarHistorial( this.chatService.usuarioPara.uid );
   } 
+
+  void _escucarMensaje(dynamic payload){
+    print('tengo mensaje!--------------------------------------- $payload');
+    
+
+    final newAnimationController = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 900),
+    );
+    
+    final newMessage = new ChatMessage(
+      texto: payload['mensaje'], 
+      uid: payload['de'], 
+      animationController : newAnimationController
+    );
+
+    setState(() {
+      _messages.insert(0, newMessage);
+      _animationControllers.add(newAnimationController);
+      _estaEscribiendo = false;
+    });
+
+    newAnimationController.forward().then((_) {
+      // Remove the controller once the animation is completed
+      _animationControllers.remove(newAnimationController);
+      newAnimationController.dispose();
+    });
+  }
 
   @override
   void dispose() {
@@ -60,6 +99,8 @@ void initState() {
     }
     super.dispose();
   }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -168,9 +209,11 @@ void initState() {
 
 
   _handleSubmit(String texto){
-if (texto.trim().isEmpty) return;
+    if (!_isInitialized) {
+      return Center(child: CircularProgressIndicator()); // Muestra carga mietras se inicia el componente
+    }
+    if (texto.trim().isEmpty) return;
 
-    print(texto);    
     _textController.clear(); // limpia la caja de texto
     _focusNode.requestFocus(); // hace que el teclado no se vaya al presionar enter
 
@@ -181,7 +224,7 @@ if (texto.trim().isEmpty) return;
     
     final newMessage = new ChatMessage(
       texto              : texto, 
-      uid                : '123', 
+      uid                : this.authService.usuario?.uid??'', 
       animationController : newAnimationController
     );
 
@@ -190,6 +233,15 @@ if (texto.trim().isEmpty) return;
       _animationControllers.add(newAnimationController);
       _estaEscribiendo = false;
     });
+    print('envie mensaje');
+    print( this.authService.usuario?.uid);
+    this.socketService.emit('mensaje-personal',
+      {
+        'de'      : this.authService.usuario?.uid,
+        'para'    : this.chatService.usuarioPara?.uid,
+        'mensaje' : texto
+      }
+    );
 
     newAnimationController.forward().then((_) {
       // Remove the controller once the animation is completed

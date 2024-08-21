@@ -25,6 +25,9 @@ https://pub.dev/packages/socket_io_client
 - intalar dependencias
 flutterpackages get
 
+- lanzar aplicacion en todos los emuladores activos
+flutter run -d all
+
 
 CMO COMAND + SHIFT + P
 flutter: Select device 

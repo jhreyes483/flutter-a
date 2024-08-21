@@ -1,4 +1,6 @@
+import 'package:chat/services/auth_service.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ChatMessage extends StatelessWidget {
 
@@ -15,12 +17,17 @@ class ChatMessage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+     
+     AuthService authService   = Provider.of<AuthService>(context, listen: false);
+
+     // const id = authService.usuario?.uid??'';
+     // print('my id ' + this.uid);
     return FadeTransition( // hace la animacion del cambio de la opacidad
       opacity: animationController,
       child: SizeTransition( //ayuda a transformar el tamaño del widget
         sizeFactor: CurvedAnimation(parent:  animationController, curve: Curves.easeOut),
         child: Container(
-          child: this.uid == '123'
+          child: this.uid == authService.usuario?.uid
           ? _myMessage()
           : _notMyMessage(),
         ),

@@ -1,7 +1,9 @@
 const Usuario = require('../models/usuario')
 
-const usuarioConectado = async ( uid = '' ) => {
+const usuarioConectado = async ( uid ='' ) => {
+    console.log(uid);
     const usuario   = await Usuario.findById(uid);
+    console.log(usuario)
 
     usuario.online = true;
     await usuario.save();

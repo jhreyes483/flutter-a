@@ -19,11 +19,14 @@ io.on('connection', client => {
 
     console.log('Cliente conectado');
     
-    const [valido,uid] = comprobarJWT(client.handshake.headers['x-token']);
+    let [valido,uid] = comprobarJWT(client.handshake.headers['x-token']);
     console.log(valido, uid);
 
     if(!valido){
-        return client.disconnect();
+       return client.disconnect(); // descomentar
+    }else{
+        console.log('Cliente sin autenticacion');
+        ///uid ='66c4f49938b1e01c12d51da3';/**borrar */
     }
     usuarioConectado(uid);
 
@@ -33,6 +36,12 @@ io.on('connection', client => {
 
     // unir a la sala
     client.join(uid); 
+    // escuchar del cliente el mensaje peronal
+    client.on('mensaje-personal', (payload) => {
+        console.log('mensaje para',payload.para,'payload',payload)
+
+        io.to(payload.para).emit('mensaje-personal', payload);
+    })
     //client.to(uid).emit('');
 
 
