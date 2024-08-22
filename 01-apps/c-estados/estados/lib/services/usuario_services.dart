@@ -6,12 +6,12 @@ class _UsuarioService {
   
   Usuario? _usuario;
 
-  StreamController<Usuario> _usuarioStreamController = new StreamController<Usuario>.broadcast();// refresca en todos laados cuando se actualiza algo del usuario
+  final StreamController<Usuario> _usuarioStreamController = new StreamController<Usuario>.broadcast();// refresca en todos laados cuando se actualiza algo del usuario
 
 
   Usuario? get usuario               => this._usuario;
   bool     get existeUsuario         => ( this._usuario != null) ? true : false;
-  Stream<Usuario> get usuarioStream => _usuarioStreamController.stream;
+  Stream<Usuario> get usuarioStream  => _usuarioStreamController.stream;
 
 
 
