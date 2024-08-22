@@ -40,7 +40,7 @@ class _Pagina2PageState extends State<Pagina2Page> {
               child: Text('Cambiar edad', style: TextStyle(color: Colors.white)),
               color: Colors.blue,
               onPressed: () {
-
+                usuarioCubit.cambiarEdad(29);
               }
             ),
 
@@ -48,7 +48,7 @@ class _Pagina2PageState extends State<Pagina2Page> {
               child: Text('Añadir profecion', style: TextStyle(color: Colors.white)),
               color: Colors.blue,
               onPressed: () {
-
+                usuarioCubit.agregarProfesion();
               }
             ),
           ],

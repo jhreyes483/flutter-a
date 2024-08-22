@@ -13,12 +13,19 @@ class Pagina1Page extends StatefulWidget {
 class _Pagina1PageState extends State<Pagina1Page> {
   @override
   Widget build(BuildContext context) {
+    final usuarioCubit = context.read<UsuarioCubit>(); // crea instacia de UsuarioCubit
     return Scaffold(
       appBar: AppBar(
         title:Text('pagina1'),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.exit_to_app),
+            onPressed: () =>  usuarioCubit.borrarUsuario()
+            )
+        ],
       ),
 
-   body: BodyScaffold(),
+  body: BodyScaffold(),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.accessibility_new),
         onPressed: (){

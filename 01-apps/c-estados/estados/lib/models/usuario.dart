@@ -9,4 +9,15 @@ class Usuario {
       throw ArgumentError('profesiones no puede ser null');
     }
   }
+
+  Usuario copyWith({ // copiarUsuario
+    String ?nombre,
+    int ?edad,
+    List<String>?profesiones
+  }) =>
+    Usuario(
+      nombre     : nombre ?? this.nombre, 
+      edad       : edad ?? this.edad,
+      profesiones: profesiones ?? this.profesiones
+    );
 }
