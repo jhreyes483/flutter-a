@@ -27,7 +27,7 @@ class _Pagina2PageState extends State<Pagina2Page> {
               color: Colors.blue,
               onPressed: () {
                 //final usuarioService = Provider.of<UsuarioService>(context, listen: false); // se deja en false porque esta dentro de un build y si es true daria error porque no puede redibujar
-                final newUser = Usuario(nombre: 'Javier', edad: 30, profeciones: ['Ingeniero', 'dev backend', 'dev front']);
+                final newUser = Usuario(nombre: 'Javier', edad: 30, profesiones: ['Ingeniero', 'dev backend', 'dev front']);
                 usuarioService.usuario = newUser;
               }
             ),
@@ -44,7 +44,7 @@ class _Pagina2PageState extends State<Pagina2Page> {
               child: Text('Añadir profecion', style: TextStyle(color: Colors.white)),
               color: Colors.blue,
               onPressed: () {
-
+                usuarioService.agregarProfesion();
               }
             ),
           ],
