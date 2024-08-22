@@ -13,14 +13,18 @@ class Pagina1Page extends StatefulWidget {
 class _Pagina1PageState extends State<Pagina1Page> {
   @override
   Widget build(BuildContext context) {
-    final usuarioService = Provider.of <UsuarioService> (context);
-    
+    final usuarioService = Provider.of <UsuarioService> (context, listen: true/* esta pendiente de todos los cambios de la clase re dibujando todos los cugares donde se este escuchando */);
+ 
+
     return Scaffold(
       appBar: AppBar(
         title:Text('pagina1'),
+        actions:   [
+          _iconEliminarUsuario(usuarioService)
+        ],
       ),
 
-      body: usuarioService.existeUsuario ? informacionUsuario() : Center( child: Text('No hay usuario seleccionado')) ,
+      body: usuarioService.existeUsuario ? InformacionUsuario( usuarioService.usuario ) : Center( child: Text('No hay usuario seleccionado')) ,
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.accessibility_new),
         onPressed: (){
@@ -29,9 +33,25 @@ class _Pagina1PageState extends State<Pagina1Page> {
       ),
     );
   }
+
+  Widget _iconEliminarUsuario(usuarioService){
+    return  usuarioService.existeUsuario ?
+      IconButton(
+        icon: Icon(Icons.exit_to_app),
+        onPressed: (){
+          usuarioService.removerUsuario();
+          Navigator.pushNamed(context, 'pagina2');
+        }, 
+    )
+    : Container();
+  }
 }
 
-class informacionUsuario extends StatelessWidget {
+class InformacionUsuario extends StatelessWidget {
+  final Usuario usuario;
+
+  const InformacionUsuario(Usuario this.usuario);
+
 
   @override
   Widget build(BuildContext context) {
@@ -46,8 +66,8 @@ class informacionUsuario extends StatelessWidget {
           Text('General', style: TextStyle( fontSize: 18, fontWeight: FontWeight.bold)),
           Divider(),
 
-          ListTile(title: Text('Nombre: ')),
-          ListTile(title: Text('Edad: ')),
+          ListTile(title: Text('Nombre: ${this.usuario.nombre}')),
+          ListTile(title: Text('Edad: ${this.usuario.edad}')),
 
           Text('Profeciones', style: TextStyle( fontSize: 18, fontWeight: FontWeight.bold)),
           Divider(),
