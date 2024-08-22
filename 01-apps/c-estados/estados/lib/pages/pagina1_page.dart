@@ -1,4 +1,6 @@
+import 'package:estados/bloc/usuario/usuario_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Pagina1Page extends StatefulWidget {
 
@@ -15,7 +17,15 @@ class _Pagina1PageState extends State<Pagina1Page> {
         title:Text('pagina1'),
       ),
 
-      body: informacionUsuario(),
+      body: BlocBuilder <UsuarioCubit, UsuarioState> (builder: (_, state) {
+
+        if(state is UsuarioIntial){
+          return Center(child: Text('No hay informacion del usuario'));
+        }else {
+          return  InformacionUsuario();
+        }
+
+      }),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.accessibility_new),
         onPressed: (){
@@ -26,7 +36,7 @@ class _Pagina1PageState extends State<Pagina1Page> {
   }
 }
 
-class informacionUsuario extends StatelessWidget {
+class InformacionUsuario extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {

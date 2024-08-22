@@ -22,6 +22,12 @@ https://pub.dev/packages/flutter_secure_storage/install
 - sockets
 https://pub.dev/packages/socket_io_client
 
+## documentacion cambios de estado
+- bloc
+https://pub.dev/packages/flutter_bloc
+- cubit
+https://bloclibrary.dev/#/coreconcepts?id=cubit
+
 - intalar dependencias
 flutterpackages get
 
