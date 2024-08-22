@@ -26,7 +26,7 @@ class _Pagina2PageState extends State<Pagina2Page> {
               onPressed: () {
 
                 final nuevoUsuario = Usuario(nombre: 'Javier', edad: 30, profeciones: ['ingeniero','dev backend','dev front','dev movil']);
-                usuarioService.cargarUsuario( nuevoUsuario);
+                usuarioService.cargarUsuario( nuevoUsuario );
               }
             ),
 
@@ -34,7 +34,7 @@ class _Pagina2PageState extends State<Pagina2Page> {
               child: Text('Cambiar edad', style: TextStyle(color: Colors.white)),
               color: Colors.blue,
               onPressed: () {
-
+                usuarioService.cambiarEdad(29);
               }
             ),
 
