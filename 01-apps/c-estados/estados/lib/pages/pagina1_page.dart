@@ -18,19 +18,7 @@ class _Pagina1PageState extends State<Pagina1Page> {
         title:Text('pagina1'),
       ),
 
-   body: BlocBuilder<UsuarioCubit, UsuarioState>( builder: (_, state) { // escucha los cambios en el estado
-
-        if(state is UsuarioIntial){
-          return Center(child: Text('No hay informacion del usuario'));
-        }else if (state is UsuarioActivo){
-
-          return  InformacionUsuario(state.usuario);
-        }else {
-          // Caso por defecto para manejar estados desconocidos
-          return Center(child: Text('Estado desconocido'));
-        }
-
-      }),
+   body: BodyScaffold(),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.accessibility_new),
         onPressed: (){
@@ -38,6 +26,40 @@ class _Pagina1PageState extends State<Pagina1Page> {
         }
       ),
     );
+  }
+}
+
+class BodyScaffold extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<UsuarioCubit, UsuarioState>( builder: (_, state) { // escucha los cambios en el estado
+
+    switch (state.runtimeType) {
+      case UsuarioIntial:
+        return Center(child: Text('No hay informacion del usuario'));
+        break;
+      case UsuarioActivo:
+        return  InformacionUsuario( (state as UsuarioActivo).usuario);
+        break;
+
+      default:
+        return Center(child: Text('Estado desconocido'));
+    }
+
+    /*
+      if(state is UsuarioIntial){
+        return Center(child: Text('No hay informacion del usuario'));
+      }else if (state is UsuarioActivo){
+    
+        return  InformacionUsuario(state.usuario);
+      }else {
+        // Caso por defecto para manejar estados desconocidos
+        return Center(child: Text('Estado desconocido'));
+      }
+     */ 
+    
+    });
   }
 }
 
