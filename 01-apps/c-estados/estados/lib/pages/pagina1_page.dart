@@ -1,4 +1,5 @@
 import 'package:estados/bloc/usuario/usuario_cubit.dart';
+import 'package:estados/models/usuario.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -17,12 +18,16 @@ class _Pagina1PageState extends State<Pagina1Page> {
         title:Text('pagina1'),
       ),
 
-      body: BlocBuilder <UsuarioCubit, UsuarioState> (builder: (_, state) {
+   body: BlocBuilder<UsuarioCubit, UsuarioState>( builder: (_, state) { // escucha los cambios en el estado
 
         if(state is UsuarioIntial){
           return Center(child: Text('No hay informacion del usuario'));
+        }else if (state is UsuarioActivo){
+
+          return  InformacionUsuario(state.usuario);
         }else {
-          return  InformacionUsuario();
+          // Caso por defecto para manejar estados desconocidos
+          return Center(child: Text('Estado desconocido'));
         }
 
       }),
@@ -37,6 +42,10 @@ class _Pagina1PageState extends State<Pagina1Page> {
 }
 
 class InformacionUsuario extends StatelessWidget {
+  final Usuario usuario;
+
+  const InformacionUsuario(this.usuario);
+
 
   @override
   Widget build(BuildContext context) {
@@ -50,14 +59,20 @@ class InformacionUsuario extends StatelessWidget {
           Text('General', style: TextStyle( fontSize: 18, fontWeight: FontWeight.bold)),
           Divider(),
 
-          ListTile(title: Text('Nombre: ')),
-          ListTile(title: Text('Edad: ')),
+          ListTile(title: Text('Nombre: ${usuario.nombre}')),
+          ListTile(title: Text('Edad: ${usuario.edad}')),
 
           Text('Profeciones', style: TextStyle( fontSize: 18, fontWeight: FontWeight.bold)),
           Divider(),
+
+          ...usuario.profesiones.map(
+            (profesion) => ListTile( title: Text(profesion))
+          ).toList()
+          /*
           ListTile(title: Text('Profecion 1')),
           ListTile(title: Text('Profecion 2')),
           ListTile(title: Text('Profecion 3')),
+          */
 
         ],
       ),
