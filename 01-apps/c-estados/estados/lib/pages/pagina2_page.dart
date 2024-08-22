@@ -1,3 +1,5 @@
+import 'package:estados/models/usuario.dart';
+import 'package:estados/services/usuario_services.dart';
 import 'package:flutter/material.dart';
 
 class Pagina2Page extends StatefulWidget {
@@ -23,6 +25,8 @@ class _Pagina2PageState extends State<Pagina2Page> {
               color: Colors.blue,
               onPressed: () {
 
+                final nuevoUsuario = Usuario(nombre: 'Javier', edad: 30, profeciones: ['ingeniero','dev backend','dev front','dev movil']);
+                usuarioService.cargarUsuario( nuevoUsuario);
               }
             ),
 

@@ -1,3 +1,4 @@
+import 'package:estados/services/usuario_services.dart';
 import 'package:flutter/material.dart';
 
 class Pagina1Page extends StatefulWidget {
@@ -15,7 +16,11 @@ class _Pagina1PageState extends State<Pagina1Page> {
         title:Text('pagina1'),
       ),
 
-      body: informacionUsuario(),
+      body: usuarioService.existeUsuario // singleton
+      ? informacionUsuario()
+      : Center( child: Text('No hay informacion del usuario')),
+      
+
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.accessibility_new),
         onPressed: (){
