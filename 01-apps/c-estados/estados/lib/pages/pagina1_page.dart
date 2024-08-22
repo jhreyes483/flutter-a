@@ -1,4 +1,7 @@
+import 'package:estados/models/usuario.dart';
+import 'package:estados/services/usuario_service.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Pagina1Page extends StatefulWidget {
 
@@ -10,12 +13,14 @@ class Pagina1Page extends StatefulWidget {
 class _Pagina1PageState extends State<Pagina1Page> {
   @override
   Widget build(BuildContext context) {
+    final usuarioService = Provider.of <UsuarioService> (context);
+    
     return Scaffold(
       appBar: AppBar(
         title:Text('pagina1'),
       ),
 
-      body: informacionUsuario(),
+      body: usuarioService.existeUsuario ? informacionUsuario() : Center( child: Text('No hay usuario seleccionado')) ,
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.accessibility_new),
         onPressed: (){
@@ -30,6 +35,7 @@ class informacionUsuario extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Container(
       width: double.infinity,
       height: double.infinity,
