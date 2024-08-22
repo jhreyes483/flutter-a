@@ -15,7 +15,34 @@ class _Pagina2PageState extends State<Pagina2Page> {
         title:Text('pagina 2'),
       ),
       body: Center(
-        child: Text('body'),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            MaterialButton( 
+              child: Text('Establecer usuario', style: TextStyle(color: Colors.white)),
+              color: Colors.blue,
+              onPressed: () {
+
+              }
+            ),
+
+            MaterialButton( 
+              child: Text('Cambiar edad', style: TextStyle(color: Colors.white)),
+              color: Colors.blue,
+              onPressed: () {
+
+              }
+            ),
+
+            MaterialButton( 
+              child: Text('Añadir profecion', style: TextStyle(color: Colors.white)),
+              color: Colors.blue,
+              onPressed: () {
+
+              }
+            ),
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.accessibility_new),
