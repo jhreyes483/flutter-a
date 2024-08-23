@@ -43,11 +43,11 @@ class informacionUsuario extends StatelessWidget {
           ListTile(title: Text('Nombre: ')),
           ListTile(title: Text('Edad: ')),
 
-          Text('Profeciones', style: TextStyle( fontSize: 18, fontWeight: FontWeight.bold)),
+          Text('Profesiones', style: TextStyle( fontSize: 18, fontWeight: FontWeight.bold)),
           Divider(),
-          ListTile(title: Text('Profecion 1')),
-          ListTile(title: Text('Profecion 2')),
-          ListTile(title: Text('Profecion 3')),
+          ListTile(title: Text('Profesion 1')),
+          ListTile(title: Text('Profesion 2')),
+          ListTile(title: Text('Profesion 3')),
 
         ],
       ),
