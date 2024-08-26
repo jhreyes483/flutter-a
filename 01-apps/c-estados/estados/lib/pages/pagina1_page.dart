@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'package:estados/bloc/user/user_bloc.dart';
+
 
 class Pagina1Page extends StatefulWidget {
 
@@ -15,7 +19,20 @@ class _Pagina1PageState extends State<Pagina1Page> {
         title:Text('pagina1'),
       ),
 
-      body: informacionUsuario(),
+      body: BlocBuilder<UserBloc, UserState> ( // creacion de User Bloc (Cada vez que haya un cambio en state esto se re dibuja)
+        builder: (_, state) {
+
+          return state.existUser 
+          ? InformacionUsuario() 
+          : const Center(
+            child: Text('No hay usuario seleccionado'),
+          );
+
+        },
+      ),
+
+
+      //InformacionUsuario(),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.accessibility_new),
         onPressed: (){
@@ -26,7 +43,7 @@ class _Pagina1PageState extends State<Pagina1Page> {
   }
 }
 
-class informacionUsuario extends StatelessWidget {
+class InformacionUsuario extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {

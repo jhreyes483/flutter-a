@@ -1,4 +1,7 @@
+import 'package:estados/bloc/user/user_bloc.dart';
+import 'package:estados/models/user.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Pagina2Page extends StatefulWidget {
 
@@ -22,7 +25,10 @@ class _Pagina2PageState extends State<Pagina2Page> {
               child: Text('Establecer usuario', style: TextStyle(color: Colors.white)),
               color: Colors.blue,
               onPressed: () {
-
+                final newUser = User(nombre: 'Javier', edad: 30, profesiones: ['dev','Ingeniero'])
+;
+                BlocProvider.of<UserBloc>(context, listen: false) // busca la estancia en el contexto para usarla
+                  .add( ActivateUser(newUser) ); // dispara el evento 
               }
             ),
 

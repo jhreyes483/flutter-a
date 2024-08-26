@@ -21,6 +21,10 @@ https://quicktype.io/
 https://pub.dev/packages/flutter_secure_storage/install
 - sockets
 https://pub.dev/packages/socket_io_client
+- bloc 
+https://pub.dev/packages/bloc
+- flutter_block
+https://pub.dev/packages/flutter_bloc
 
 - intalar dependencias
 flutterpackages get
