@@ -1,3 +1,4 @@
+import 'package:estados/models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -23,7 +24,7 @@ class _Pagina1PageState extends State<Pagina1Page> {
         builder: (_, state) {
 
           return state.existUser 
-          ? InformacionUsuario() 
+          ? InformacionUsuario(user: state.user!/* ! siempre existe */) 
           : const Center(
             child: Text('No hay usuario seleccionado'),
           );
@@ -45,6 +46,13 @@ class _Pagina1PageState extends State<Pagina1Page> {
 
 class InformacionUsuario extends StatelessWidget {
 
+  final User user;
+
+  const InformacionUsuario({
+      super.key, 
+      required this.user
+    });
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -54,17 +62,23 @@ class InformacionUsuario extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start, // envia la comna a un costado
         children: [
-          Text('General', style: TextStyle( fontSize: 18, fontWeight: FontWeight.bold)),
-          Divider(),
+          const  Text('General', style: TextStyle( fontSize: 18, fontWeight: FontWeight.bold)),
+          const  Divider(),
 
-          ListTile(title: Text('Nombre: ')),
-          ListTile(title: Text('Edad: ')),
+          ListTile(title: Text('Nombre: ${user.nombre}')),
+          ListTile(title: Text('Edad: ${user.edad}')),
 
-          Text('Profesiones', style: TextStyle( fontSize: 18, fontWeight: FontWeight.bold)),
-          Divider(),
+          const Text('Profesiones', style: TextStyle( fontSize: 18, fontWeight: FontWeight.bold)),
+          const Divider(),
+          // desestructura user lo recorre y genera un ListTitle por cada item
+          ...user.profesiones.map(
+            (prof) => ListTile(title: Text(prof) ) 
+          ).toList()
+          /*
           ListTile(title: Text('Profesion 1')),
           ListTile(title: Text('Profesion 2')),
           ListTile(title: Text('Profesion 3')),
+          */
 
         ],
       ),
