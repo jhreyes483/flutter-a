@@ -1,3 +1,5 @@
+import 'package:estados/controllers/usuario_controller.dart';
+import 'package:estados/models/usuario.dart';
 import 'package:estados/pages/pagina2_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -12,12 +14,18 @@ class Pagina1Page extends StatefulWidget {
 class _Pagina1PageState extends State<Pagina1Page> {
   @override
   Widget build(BuildContext context) {
+    final usuarioCtrl = Get.put(UsuarioController()); // injecta el usuario controller al context
+
+
     return Scaffold(
       appBar: AppBar(
         title:Text('pagina1'),
       ),
 
-      body: informacionUsuario(),
+      body: Obx(() => usuarioCtrl.existeUsuario.value
+        ? informacionUsuario()
+        : NoInfo()
+       ), // observa los cambios de estado y re dibuja
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.accessibility_new),
         onPressed: (){
@@ -35,6 +43,18 @@ class _Pagina1PageState extends State<Pagina1Page> {
           });
         }
       ),
+    );
+  }
+}
+
+class NoInfo extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Center(
+        child: Text('No hay usuario seleccionado'),
+      )
     );
   }
 }

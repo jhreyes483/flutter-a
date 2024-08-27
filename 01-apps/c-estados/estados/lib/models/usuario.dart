@@ -5,8 +5,8 @@ class Usuario {
 
 
   Usuario({
-    required this.nombre, 
-    required this.edad, 
+    this.nombre = '', 
+    this.edad = 0, 
     this.profesiones = const []
   });
 }
