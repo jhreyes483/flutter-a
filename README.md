@@ -22,6 +22,20 @@ https://pub.dev/packages/flutter_secure_storage/install
 - sockets
 https://pub.dev/packages/socket_io_client
 
+## app mapas
+- geolocalizacion
+https://pub.dev/packages/geolocator
+- permisos
+https://pub.dev/packages/permission_handler
+- flutter_bloc
+https://pub.dev/packages/flutter_bloc
+- google maps flutter
+https://pub.dev/packages/google_maps_flutter
+- dio
+https://pub.dev/packages/dio
+- animate_do
+https://pub.dev/packages/animate_do
+
 - intalar dependencias
 flutterpackages get
 
