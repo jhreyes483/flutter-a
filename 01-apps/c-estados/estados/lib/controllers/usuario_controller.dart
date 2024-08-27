@@ -6,6 +6,9 @@ class UsuarioController extends GetxController {
   var existeUsuario = false.obs; // un observador
   var usuario       = Usuario().obs;
 
+  int get profesionesCount {
+    return this.usuario.value.profesiones.length;
+  }
 
   void cargarUsuario( Usuario pUsuario ){
     this.existeUsuario.value = true;
@@ -15,6 +18,13 @@ class UsuarioController extends GetxController {
   void cambiarEdad(int edad){
     this.usuario.update((val){
       val!.edad = edad;
+    });
+  }
+
+  void agregarProfesion(String profesion){
+    print('llego a agregar profesiones');
+    this.usuario.update((val){
+      val!.profesiones = [...val.profesiones, profesion];
     });
   }
 }

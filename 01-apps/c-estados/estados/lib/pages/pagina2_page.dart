@@ -45,8 +45,8 @@ class _Pagina2PageState extends State<Pagina2Page> {
               child: Text('Añadir profecion', style: TextStyle(color: Colors.white)),
               color: Colors.blue,
               onPressed: () {
-
-              }
+                usuarioCtrl.agregarProfesion('Test profesion ${usuarioCtrl.profesionesCount + 1}');
+              }   
             ),
           ],
         ),
