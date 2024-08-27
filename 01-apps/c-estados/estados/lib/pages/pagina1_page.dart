@@ -1,4 +1,6 @@
+import 'package:estados/pages/pagina2_page.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class Pagina1Page extends StatefulWidget {
 
@@ -19,7 +21,18 @@ class _Pagina1PageState extends State<Pagina1Page> {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.accessibility_new),
         onPressed: (){
-          Navigator.pushNamed(context, 'pagina2');
+          // redirigir a otra pagina normal
+          //Navigator.pushNamed(context, 'pagina2'); 
+
+          // redirigir a otra pagina con getx
+          //Get.to(Pagina2Page());
+          // o
+          // Get.toNamed('pagina2');
+          // o con argumentos
+          Get.toNamed('pagina2', arguments: {
+            'nombre':'Javier',
+            'edad': 30
+          });
         }
       ),
     );

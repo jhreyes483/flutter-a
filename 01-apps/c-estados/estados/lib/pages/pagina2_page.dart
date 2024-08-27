@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/route_manager.dart';
 
 class Pagina2Page extends StatefulWidget {
 
@@ -10,6 +11,8 @@ class Pagina2Page extends StatefulWidget {
 class _Pagina2PageState extends State<Pagina2Page> {
   @override
   Widget build(BuildContext context) {
+    print(Get.arguments);  //   print(Get.arguments['nombre'] );
+
   return Scaffold(
       appBar: AppBar(
         title:Text('pagina 2'),
