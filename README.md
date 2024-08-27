@@ -21,6 +21,8 @@ https://quicktype.io/
 https://pub.dev/packages/flutter_secure_storage/install
 - sockets
 https://pub.dev/packages/socket_io_client
+- getx
+https://pub.dev/packages/get
 
 - intalar dependencias
 flutterpackages get
