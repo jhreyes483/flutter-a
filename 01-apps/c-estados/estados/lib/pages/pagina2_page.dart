@@ -13,6 +13,7 @@ class Pagina2Page extends StatefulWidget {
 class _Pagina2PageState extends State<Pagina2Page> {
   @override
   Widget build(BuildContext context) {
+    final userBloc =  BlocProvider.of<UserBloc>(context, listen: false); // busca la estancia en el contexto para usarla 
   return Scaffold(
       appBar: AppBar(
         title:Text('pagina 2'),
@@ -25,10 +26,8 @@ class _Pagina2PageState extends State<Pagina2Page> {
               child: Text('Establecer usuario', style: TextStyle(color: Colors.white)),
               color: Colors.blue,
               onPressed: () {
-                final newUser = User(nombre: 'Javier', edad: 30, profesiones: ['dev','Ingeniero'])
-;
-                BlocProvider.of<UserBloc>(context, listen: false) // busca la estancia en el contexto para usarla
-                  .add( ActivateUser(newUser) ); // dispara el evento 
+                final newUser = User(nombre: 'Javier', edad: 30, profesiones: ['dev','Ingeniero']);
+                userBloc.add( ActivateUser(newUser) ); // dispara el evento 
               }
             ),
 
@@ -36,10 +35,10 @@ class _Pagina2PageState extends State<Pagina2Page> {
               child: Text('Cambiar edad', style: TextStyle(color: Colors.white)),
               color: Colors.blue,
               onPressed: () {
-
+                userBloc.add( ChangeUserAge(age: 29) ); // dispara el evento 
               }
             ),
-
+// quede en el 165
             MaterialButton( 
               child: Text('Añadir profecion', style: TextStyle(color: Colors.white)),
               color: Colors.blue,

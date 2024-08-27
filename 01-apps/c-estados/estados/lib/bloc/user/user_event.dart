@@ -11,3 +11,8 @@ class ActivateUser extends UserEvent{
 
   ActivateUser(this.user); // constructor
 }
+
+class ChangeUserAge extends UserEvent {
+  final int age;
+  ChangeUserAge({required this.age});
+}
