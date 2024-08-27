@@ -37,7 +37,7 @@ class _Pagina2PageState extends State<Pagina2Page> {
               child: Text('Cambiar edad', style: TextStyle(color: Colors.white)),
               color: Colors.blue,
               onPressed: () {
-
+                usuarioCtrl.cambiarEdad(25);
               }
             ),
 

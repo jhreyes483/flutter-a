@@ -1,9 +1,9 @@
-import 'package:estados/controllers/usuario_controller.dart';
-import 'package:estados/models/usuario.dart';
-import 'package:estados/pages/pagina2_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'package:estados/pages/pagina2_page.dart';
+import 'package:estados/models/usuario.dart';
+import 'package:estados/controllers/usuario_controller.dart';
 class Pagina1Page extends StatefulWidget {
 
 
@@ -23,7 +23,7 @@ class _Pagina1PageState extends State<Pagina1Page> {
       ),
 
       body: Obx(() => usuarioCtrl.existeUsuario.value
-        ? informacionUsuario()
+        ? informacionUsuario(usuario: usuarioCtrl.usuario.value)
         : NoInfo()
        ), // observa los cambios de estado y re dibuja
       floatingActionButton: FloatingActionButton(
@@ -61,6 +61,14 @@ class NoInfo extends StatelessWidget {
 
 class informacionUsuario extends StatelessWidget {
 
+  final Usuario usuario;
+
+  const informacionUsuario({
+    super.key, 
+    required this.usuario
+  }); 
+
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -73,8 +81,8 @@ class informacionUsuario extends StatelessWidget {
           Text('General', style: TextStyle( fontSize: 18, fontWeight: FontWeight.bold)),
           Divider(),
 
-          ListTile(title: Text('Nombre: ')),
-          ListTile(title: Text('Edad: ')),
+          ListTile(title: Text('Nombre: ${this.usuario.nombre}')),
+          ListTile(title: Text('Edad: ${this.usuario.edad}')),
 
           Text('Profesiones', style: TextStyle( fontSize: 18, fontWeight: FontWeight.bold)),
           Divider(),
