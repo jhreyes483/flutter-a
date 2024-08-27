@@ -17,6 +17,8 @@ class ChangeUserAge extends UserEvent {
   ChangeUserAge({required this.age});
 }
 
+class DeleteUser extends UserEvent {}
+
 class AddProfesion extends UserEvent {
   final String profesion;
   AddProfesion({required this.profesion});

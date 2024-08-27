@@ -18,6 +18,15 @@ class _Pagina1PageState extends State<Pagina1Page> {
     return Scaffold(
       appBar: AppBar(
         title:Text('pagina1'),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.delete_outline),
+            onPressed: (){
+              BlocProvider.of<UserBloc>(context, listen: false)
+                .add(DeleteUser());
+            },
+          )
+        ],
       ),
 
       body: BlocBuilder<UserBloc, UserState> ( // creacion de User Bloc (Cada vez que haya un cambio en state esto se re dibuja)

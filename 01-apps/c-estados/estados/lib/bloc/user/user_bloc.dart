@@ -34,6 +34,9 @@ class UserBloc extends Bloc<UserEvent,UserState> {
 
   });
 
+  on<DeleteUser>((event, emit) {
+    emit(UserInitialState());
+  });
 
   }
 
