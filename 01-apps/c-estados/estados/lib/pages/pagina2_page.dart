@@ -38,12 +38,11 @@ class _Pagina2PageState extends State<Pagina2Page> {
                 userBloc.add( ChangeUserAge(age: 29) ); // dispara el evento 
               }
             ),
-// quede en el 165
             MaterialButton( 
-              child: Text('Añadir profecion', style: TextStyle(color: Colors.white)),
+              child: Text('Añadir profesion', style: TextStyle(color: Colors.white)),
               color: Colors.blue,
               onPressed: () {
-
+                userBloc.add( AddProfesion(profesion: 'test profesion'));
               }
             ),
           ],
