@@ -1,13 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:map_app/blocs/gps/gps_bloc.dart';
 import 'package:map_app/screens/screens.dart';
 
 //mateapp
 
 
-void main() => runApp(const MyApp());
+void main() {
+  runApp( 
+    MultiBlocProvider(
+    providers: [
+      BlocProvider(
+        create: (context) => GpsBloc(),
+      ),
+    ],
+    child: const MapsApp(),
+  ));
+}
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class MapsApp extends StatelessWidget {
+  const MapsApp({super.key});
 
   @override
   Widget build(BuildContext context) {
