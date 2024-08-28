@@ -7,6 +7,8 @@ sealed class GpsEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class GpsEnabledEvent extends GpsEvent {}
+class GpsEnabledEvent extends GpsEvent {
+   
+}
 
 class GpsPermissionGrantedEvent extends GpsEvent {}
