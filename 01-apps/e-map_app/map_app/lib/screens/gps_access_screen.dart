@@ -20,10 +20,20 @@ class _AccessButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
+    return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text('Es necesario el acceso a GPS'),
+        const Text('Es necesario el acceso a GPS'),
+        MaterialButton(
+          child: const Text('Solicitar aceceso', style: TextStyle(color: Colors.white)),
+          color: Colors.black,
+          shape:  const StadiumBorder(), // es como un border radius
+          splashColor: Colors.transparent, // quita el efecto del splash al hacer click
+          elevation: 0,
+          onPressed: () {
+
+          }
+        )
       ],
     );
   }
