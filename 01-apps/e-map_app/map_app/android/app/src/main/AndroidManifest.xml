@@ -1,4 +1,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Internet -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- GPS -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+    
     <application
         android:label="map_app"
         android:name="${applicationName}"
@@ -30,6 +38,12 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+                    <!-- Declare the GeolocatorService -->
+        <service
+            android:name="com.baseflow.geolocator.service.GeolocatorService"
+            android:exported="true"
+            android:permission="android.permission.ACCESS_FINE_LOCATION"
+            android:enabled="true"/>
     </application>
     <!-- Required to query activities that can process text, see:
          https://developer.android.com/training/package-visibility and

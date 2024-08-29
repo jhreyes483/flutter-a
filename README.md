@@ -43,6 +43,8 @@ flutterpackages get
 flutter run -d all
 
 
+
+
 CMO COMAND + SHIFT + P
 flutter: Select device 
 Small_phone_API_35 (Code boot) 
@@ -50,3 +52,8 @@ Start Small Phone API 35
 
 permiso de imagenes 
 flutter config --enable-web
+
+
+- clean
+flutter clean
+flutter pub get
