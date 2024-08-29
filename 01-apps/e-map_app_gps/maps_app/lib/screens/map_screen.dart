@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:maps_app/blocs/location/location_bloc.dart';
 
 
@@ -34,9 +35,13 @@ class _MapScreenState extends State<MapScreen> {
         builder: (context, state){
 
           if(state.lastKonwnLocation == null ) return const Center(child: Text('Espere por favor...'),);
-          return Center(
-            child: Text('${state.lastKonwnLocation!.latitude}, ${state.lastKonwnLocation!.latitude}'),
+
+          final CameraPosition initialCameraPosition = CameraPosition(
+            target: state.lastKonwnLocation!,
+            zoom: 15
           );
+
+          return GoogleMap(initialCameraPosition: initialCameraPosition);
         },
       )
   );
