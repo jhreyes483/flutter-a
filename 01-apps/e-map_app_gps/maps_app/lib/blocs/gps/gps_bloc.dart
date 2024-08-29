@@ -27,11 +27,11 @@ class GpsBloc extends Bloc<GpsEvent, GpsState> {
 
   Future<void> _init() async {
 
-    final gpsInitStatus = await Future.wait([
+    final gpsInitStatus = await Future.wait([ // es un await que dispara todos al tiempo
         _checkGpsStatus(),
         _isPermissionGranted(),
     ]);
-
+    print('gpsInitStatus $gpsInitStatus');
 
     add( GpsAndPermissionEvent(
       isGpsEnabled: gpsInitStatus[0],
@@ -63,20 +63,22 @@ class GpsBloc extends Bloc<GpsEvent, GpsState> {
 
   Future<void> askGpsAccess() async {
 
-    final status = await Permission.location.request();
+    final status = await Permission.location.request(); // sale la pantalla de permisos
 
-    switch ( status ) {
+    switch ( status ) { // decicion del usario
       case PermissionStatus.granted:
-        add( GpsAndPermissionEvent(isGpsEnabled: state.isGpsEnabled, isGpsPermissionGranted: true) );
+        add( GpsAndPermissionEvent(isGpsEnabled: state.isGpsEnabled, isGpsPermissionGranted: true) ); // permite el acceso
         break;
       
       case PermissionStatus.denied:
       case PermissionStatus.restricted:
       case PermissionStatus.limited:
       case PermissionStatus.permanentlyDenied:
+      case PermissionStatus.provisional:
         add( GpsAndPermissionEvent(isGpsEnabled: state.isGpsEnabled, isGpsPermissionGranted: false) );
         openAppSettings();
     }
+
 
   }
 
