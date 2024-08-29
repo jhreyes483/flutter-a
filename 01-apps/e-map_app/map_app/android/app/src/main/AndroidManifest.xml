@@ -44,6 +44,17 @@
             android:exported="true"
             android:permission="android.permission.ACCESS_FINE_LOCATION"
             android:enabled="true"/>
+
+
+        <receiver
+            android:name="com.baseflow.geolocator.service.GeolocatorReceiver"
+            android:exported="true"
+            android:permission="android.permission.ACCESS_FINE_LOCATION">
+            <intent-filter>
+                <action android:name="com.baseflow.geolocator.SERVICE_UPDATE"/>
+            </intent-filter>
+        </receiver>
+        
     </application>
     <!-- Required to query activities that can process text, see:
          https://developer.android.com/training/package-visibility and
