@@ -32,7 +32,7 @@ class LocationState extends Equatable /* compara cada propiedad para saber si do
 
   
   @override
-  List<Object?> get props => [ followingUser , lastKonwnLocation, myLocationHistory /* esto hace que al comparar se tomeen cuenta esta pripiedad */ ];
+  List<Object?> get props => [ followingUser , lastKonwnLocation, myLocationHistory /* esto hace que al comparar se tomen cuenta esta pripiedad */ ];
 }
 
 
