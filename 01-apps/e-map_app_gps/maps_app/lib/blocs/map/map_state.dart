@@ -1,10 +1,25 @@
 part of 'map_bloc.dart';
 
-sealed class MapState extends Equatable {
-  const MapState();
+class MapState extends Equatable {
+
+  final bool isMapInitialized;
+  final bool followUser;
+
+  const MapState({
+    this.isMapInitialized = false,
+    this.followUser = false
+  });
   
+  MapState copyWith({
+    bool? isMapInitialized,
+    bool? followUser 
+  }) => MapState(
+    isMapInitialized:  isMapInitialized ?? this.isMapInitialized,
+    followUser: followUser ?? this.isMapInitialized
+  );
+
   @override
-  List<Object> get props => [];
+  List<Object> get props => [ isMapInitialized, followUser ];
 }
 
-final class MapInitial extends MapState {}
+
