@@ -3,7 +3,7 @@ part of 'location_bloc.dart';
 class LocationState extends Equatable /* compara cada propiedad para saber si dos estancias son iguales */ {
 
   final bool followingUser;
-  final LatLng?lastKonwnLocation;
+  final LatLng?lastKnownLocation;
   final List<LatLng>  myLocationHistory; 
 
 
@@ -14,25 +14,25 @@ class LocationState extends Equatable /* compara cada propiedad para saber si do
 
   const LocationState({ // constructor
     this.followingUser = false,
-    this.lastKonwnLocation,
+    this.lastKnownLocation,
     myLocationHistory 
   }): myLocationHistory = myLocationHistory ?? const [];
 
 
   LocationState copyWith({
   final bool? followingUser,
-  final LatLng? lastKonwnLocation,
+  final LatLng? lastKnownLocation,
   final List<LatLng>? myLocationHistory,
 
   }) => LocationState(
    followingUser    : followingUser ?? this.followingUser,
-  lastKonwnLocation : lastKonwnLocation ?? this.lastKonwnLocation,
+  lastKnownLocation : lastKnownLocation ?? this.lastKnownLocation,
   myLocationHistory : myLocationHistory ?? this.myLocationHistory,
   );
 
   
   @override
-  List<Object?> get props => [ followingUser , lastKonwnLocation, myLocationHistory /* esto hace que al comparar se tomen cuenta esta pripiedad */ ];
+  List<Object?> get props => [ followingUser , lastKnownLocation, myLocationHistory /* esto hace que al comparar se tomen cuenta esta propiedad */ ];
 }
 
 

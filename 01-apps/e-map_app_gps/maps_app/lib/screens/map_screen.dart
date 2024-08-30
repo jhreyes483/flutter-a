@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+
 import 'package:maps_app/blocs/location/location_bloc.dart';
+import 'package:maps_app/views/views.dart';
 
 
 class MapScreen extends StatefulWidget {
@@ -24,24 +25,26 @@ class _MapScreenState extends State<MapScreen> {
 
   @override
   void dispose() {
-    locationBloc.stopFollowingUser(); // limpia la suscribcion
+    locationBloc.stopFollowingUser(); // limpia la suscripción
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
   return Scaffold(
-      body: BlocBuilder<LocationBloc, LocationState>(
+      body: BlocBuilder<LocationBloc, LocationState>( // escucha los cambios del bloc
         builder: (context, state){
 
-          if(state.lastKonwnLocation == null ) return const Center(child: Text('Espere por favor...'),);
+          if(state.lastKnownLocation == null ) return const Center(child: Text('Espere por favor...'),);
 
-          final CameraPosition initialCameraPosition = CameraPosition(
-            target: state.lastKonwnLocation!,
-            zoom: 15
+          return SingleChildScrollView( // envuelve en un scroll
+            child: Stack( // sirve para colocar un widget encima de otro
+              children: [
+                MapView( initialLocation: state.lastKnownLocation!)
+                // TODO: botones...
+              ],
+            ),
           );
-
-          return GoogleMap(initialCameraPosition: initialCameraPosition);
         },
       )
   );

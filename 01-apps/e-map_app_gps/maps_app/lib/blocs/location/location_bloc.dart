@@ -21,7 +21,7 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
     on<OnNewUserLocationEvent>((event, emit)  {
       emit(
         state.copyWith(
-          lastKonwnLocation: event.newLocation,
+          lastKnownLocation: event.newLocation,
           myLocationHistory: [ ...state.myLocationHistory, event.newLocation ],
         )
       );
@@ -37,7 +37,7 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
   }
 
   /*
-  Escucha los cambios cambio de la ubicacion del usuario
+  Escucha los cambios cambio de la ubicación del usuario
   */
   void startFollowingUser () {
     
