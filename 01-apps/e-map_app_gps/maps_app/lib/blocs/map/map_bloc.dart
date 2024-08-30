@@ -2,7 +2,8 @@ import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart' show GoogleMapController, LatLng;
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+
 import 'package:maps_app/themes/uber.dart';
 
 part 'map_event.dart';
@@ -26,4 +27,11 @@ class MapBloc extends Bloc<MapEvent, MapState> {
 
     emit( state.copyWith(isMapInitialized: true)); /* emite el evento */
   }
+
+
+  void moveCamera(LatLng newLocation){
+    final cameraUpdate = CameraUpdate.newLatLng( newLocation );
+    _mapController?.animateCamera(cameraUpdate);
+  }
+
 }
