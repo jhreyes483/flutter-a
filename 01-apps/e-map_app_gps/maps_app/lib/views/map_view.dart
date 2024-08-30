@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:maps_app/blocs/map/map_bloc.dart';
 
 class MapView extends StatelessWidget {
 
@@ -12,6 +14,8 @@ class MapView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final mapBloc = BlocProvider.of<MapBloc>(context); // llama el mapBloc del context
+
     final CameraPosition initialCameraPosition = CameraPosition(
       target: initialLocation,
       zoom: 15
@@ -27,6 +31,8 @@ class MapView extends StatelessWidget {
         myLocationEnabled: true, // muestra la ubicación actual del usuario
         zoomControlsEnabled: false, // botones para controlar el zoom
         myLocationButtonEnabled: false,
+
+        onMapCreated: ( controller ) => mapBloc.add( OnMapInitialzedEvent(controller)) // establece el controlador en el bloc
 
         // TODO Markers
         // TODO polyline
