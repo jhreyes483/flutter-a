@@ -31,12 +31,17 @@ https://pub.dev/packages/permission_handler
 https://pub.dev/packages/flutter_bloc
 - google maps flutter
 https://pub.dev/packages/google_maps_flutter
+- mapas personalizar estilos
+https://mapstyle.withgoogle.com/
+https://snazzymaps.com/
+
+
 - dio
 https://pub.dev/packages/dio
 - animate_do
-https://pub.dev/packages/animate_do
+https://pub.dev/packages/animate_d
 
-- intalar dependencias
+- instalar dependencias
 flutterpackages get
 
 - lanzar aplicacion en todos los emuladores activos
