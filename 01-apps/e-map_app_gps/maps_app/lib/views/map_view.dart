@@ -25,20 +25,24 @@ class MapView extends StatelessWidget {
     return SizedBox( // genera una caja con un tamaño especifico
       width:  size.width,
       height: size.height,
-      child: GoogleMap(
-        initialCameraPosition: initialCameraPosition,
-        compassEnabled: false, // hace que aparezca el compas
-        myLocationEnabled: true, // muestra la ubicación actual del usuario
-        zoomControlsEnabled: false, // botones para controlar el zoom
-        myLocationButtonEnabled: false,
+      child: Listener( // detecta cuando se mueve el dedo por la pantalla
+      onPointerMove: ( pointerMoveEvent ) => mapBloc.add( OnStopFolloingUserEvent()),
 
-        onMapCreated: ( controller ) => mapBloc.add( OnMapInitialzedEvent(controller)) // establece el controlador en el bloc
-
-        // TODO Markers
-        // TODO polyline
-        // TODO cuando se mueve el mapa
-
-        )
+        child: GoogleMap(
+          initialCameraPosition: initialCameraPosition,
+          compassEnabled: false, // hace que aparezca el compas
+          myLocationEnabled: true, // muestra la ubicación actual del usuario
+          zoomControlsEnabled: false, // botones para controlar el zoom
+          myLocationButtonEnabled: false,
+        
+          onMapCreated: ( controller ) => mapBloc.add( OnMapInitialzedEvent(controller)) // establece el controlador en el bloc
+        
+          // TODO Markers
+          // TODO polyline
+          // TODO cuando se mueve el mapa
+        
+          ),
+      )
       );
   }
 }

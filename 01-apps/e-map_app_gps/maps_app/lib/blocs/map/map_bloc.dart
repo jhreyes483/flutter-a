@@ -21,9 +21,11 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     });
 
     on<OnMapInitialzedEvent /* cuando se ejecuta el evento */>(_onInitMap);
+    on<OnStartFolloingUserEvent /* cuando se ejecuta el evento */>(_onStartFollowingUser);
+    on<OnStopFolloingUserEvent /* cuando se ejecuta el evento */>((event, emit)  => emit(state.copyWith( isFollowingUser : false)) );
 
     locationBloc.stream.listen((locationState){ /* escucha los cambios */
-      if( !state.followUser) return;
+      if( !state.isFollowingUser) return;
       if( locationState.lastKnownLocation == null ) return;
 
       moveCamera(locationState.lastKnownLocation!);
@@ -38,6 +40,12 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     emit( state.copyWith(isMapInitialized: true)); /* emite el evento */
   }
 
+void _onStartFollowingUser( OnStartFolloingUserEvent event, Emitter<MapState> emit ){
+  emit(state.copyWith(isFollowingUser: true));
+  if( locationBloc.state.lastKnownLocation == null ) return;
+  moveCamera(locationBloc.state.lastKnownLocation!);
+
+}
 
   void moveCamera(LatLng newLocation){
     final cameraUpdate = CameraUpdate.newLatLng( newLocation );
