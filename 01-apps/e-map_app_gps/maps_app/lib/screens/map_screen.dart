@@ -1,7 +1,10 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:maps_app/blocs/location/location_bloc.dart';
+import 'package:maps_app/blocs/map/map_bloc.dart';
 import 'package:maps_app/views/views.dart';
 import 'package:maps_app/widgets/widgets.dart';
 
@@ -34,17 +37,25 @@ class _MapScreenState extends State<MapScreen> {
   Widget build(BuildContext context) {
   return Scaffold(
       body: BlocBuilder<LocationBloc, LocationState>( // escucha los cambios del bloc
-        builder: (context, state){
+        builder: (context, locationState){
 
-          if(state.lastKnownLocation == null ) return const Center(child: Text('Espere por favor...'),);
+          if(locationState.lastKnownLocation == null ) return const Center(child: Text('Espere por favor...'),);
+          
 
-          return SingleChildScrollView( // envuelve en un scroll
-            child: Stack( // sirve para colocar un widget encima de otro
-              children: [
-                MapView( initialLocation: state.lastKnownLocation!)
-                // TODO: botones...
-              ],
-            ),
+          return BlocBuilder<MapBloc, MapState>(
+            builder: (context, mapState) {
+              return SingleChildScrollView( // envuelve en un scroll
+                      child: Stack( // sirve para colocar un widget encima de otro
+                        children: [
+                          MapView( 
+                            initialLocation: locationState.lastKnownLocation!,
+                            polyline: mapState.polylines.values.toSet(),
+                          )
+                          // TODO: botones...
+                        ],
+                      ),
+                    );
+            },
           );
         },
       ),

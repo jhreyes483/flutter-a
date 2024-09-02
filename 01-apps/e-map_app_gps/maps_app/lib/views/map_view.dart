@@ -6,10 +6,12 @@ import 'package:maps_app/blocs/map/map_bloc.dart';
 class MapView extends StatelessWidget {
 
   final LatLng initialLocation;
+  final Set<Polyline> polyline;
 
   const MapView({
     super.key, 
-    required this.initialLocation
+    required this.initialLocation, 
+    required this.polyline
     });
 
   @override
@@ -34,6 +36,7 @@ class MapView extends StatelessWidget {
           myLocationEnabled: true, // muestra la ubicación actual del usuario
           zoomControlsEnabled: false, // botones para controlar el zoom
           myLocationButtonEnabled: false,
+          polylines: this.polyline,
         
           onMapCreated: ( controller ) => mapBloc.add( OnMapInitialzedEvent(controller)) // establece el controlador en el bloc
         

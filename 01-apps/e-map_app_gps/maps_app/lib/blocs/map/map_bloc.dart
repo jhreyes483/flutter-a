@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:maps_app/blocs/blocs.dart';
 
@@ -23,8 +24,14 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     on<OnMapInitialzedEvent /* cuando se ejecuta el evento */>(_onInitMap);
     on<OnStartFolloingUserEvent /* cuando se ejecuta el evento */>(_onStartFollowingUser);
     on<OnStopFolloingUserEvent /* cuando se ejecuta el evento */>((event, emit)  => emit(state.copyWith( isFollowingUser : false)) );
+    on<UpdateUserPolylineEvent>(_onPoliylineNewPoint);
 
     locationBloc.stream.listen((locationState){ /* escucha los cambios */
+
+      if(locationState.lastKnownLocation != null ){
+        /* agrega una nueva ubicacion al historico para dibujar la linea de recorrido */
+        add( UpdateUserPolylineEvent(locationState.myLocationHistory));
+      }
       if( !state.isFollowingUser) return;
       if( locationState.lastKnownLocation == null ) return;
 
@@ -45,6 +52,22 @@ void _onStartFollowingUser( OnStartFolloingUserEvent event, Emitter<MapState> em
   if( locationBloc.state.lastKnownLocation == null ) return;
   moveCamera(locationBloc.state.lastKnownLocation!);
 
+}
+/** crea la polyline */
+void _onPoliylineNewPoint( UpdateUserPolylineEvent event, Emitter<MapState> emit ){
+  final myRoute = Polyline(
+    polylineId:const PolylineId('myRoute'),
+    color: Colors.black,
+    width: 5,
+    startCap: Cap.roundCap,
+    endCap: Cap.roundCap,
+    points: event.userLocations
+  ); // propío de google maps de flutter
+
+  final currentPolylines = Map <String, Polyline>.from(state.polylines); //crea una nueva instancia de Map<String, Polyline> a partir del mapa existente state.polylines
+  currentPolylines['myRoute'] = myRoute;
+
+  emit( state.copyWith(polylines: currentPolylines) );
 }
 
   void moveCamera(LatLng newLocation){

@@ -15,3 +15,10 @@ class OnMapInitialzedEvent extends MapEvent {
 
 class OnStopFolloingUserEvent extends MapEvent {}
 class OnStartFolloingUserEvent extends MapEvent {}
+class UpdateUserPolylineEvent extends MapEvent {
+  final List<LatLng> userLocations;
+
+  const UpdateUserPolylineEvent(
+    this.userLocations
+  );
+}
