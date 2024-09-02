@@ -35,6 +35,9 @@ https://pub.dev/packages/google_maps_flutter
 https://mapstyle.withgoogle.com/
 https://snazzymaps.com/
 
+https://www.mapbox.com/
+https://www.mapbox.com/
+
 
 - dio
 https://pub.dev/packages/dio

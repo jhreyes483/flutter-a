@@ -60,8 +60,8 @@ class _MapScreenState extends State<MapScreen> {
                           MapView( 
                             initialLocation: locationState.lastKnownLocation!,
                             polyline: polylines.values.toSet(),
-                          )
-                          // TODO: botones...
+                          ),
+                          const SearchBarApp()
                         ],
                       ),
                     );
@@ -76,7 +76,8 @@ class _MapScreenState extends State<MapScreen> {
         children: [
           BtnToggleUserRoute(),
           BtnCurrenLocation(),
-          BtnFollowUser()
+          BtnFollowUser(),
+
         ],
       ),
   );
