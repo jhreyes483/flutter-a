@@ -36,7 +36,7 @@ class MapView extends StatelessWidget {
           myLocationEnabled: true, // muestra la ubicación actual del usuario
           zoomControlsEnabled: false, // botones para controlar el zoom
           myLocationButtonEnabled: false,
-          polylines: this.polyline,
+          polylines: this.polyline, // mostrar o oucultar las line de trayecto
         
           onMapCreated: ( controller ) => mapBloc.add( OnMapInitialzedEvent(controller)) // establece el controlador en el bloc
         

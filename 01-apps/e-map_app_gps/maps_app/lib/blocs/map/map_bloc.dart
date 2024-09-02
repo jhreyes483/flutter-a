@@ -25,6 +25,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     on<OnStartFolloingUserEvent /* cuando se ejecuta el evento */>(_onStartFollowingUser);
     on<OnStopFolloingUserEvent /* cuando se ejecuta el evento */>((event, emit)  => emit(state.copyWith( isFollowingUser : false)) );
     on<UpdateUserPolylineEvent>(_onPoliylineNewPoint);
+    on<OnToggleUserRoute>(_onToogleShowRoute);
 
     locationBloc.stream.listen((locationState){ /* escucha los cambios */
 
@@ -38,6 +39,11 @@ class MapBloc extends Bloc<MapEvent, MapState> {
       moveCamera(locationState.lastKnownLocation!);
     });
 
+  }
+
+  void _onToogleShowRoute(OnToggleUserRoute event, Emitter<MapState> emit){
+    print('execute event onToogleShowRoute');
+    emit(state.copyWith( showMyRoute: !state.showMyRoute));
   }
 
   void _onInitMap( OnMapInitialzedEvent event, Emitter<MapState> emit){
