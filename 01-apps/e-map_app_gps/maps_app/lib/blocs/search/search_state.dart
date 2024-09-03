@@ -1,29 +1,27 @@
 part of 'search_bloc.dart';
 
-@immutable
-class SearchState extends Equatable /* compara las varibles en los cambios de estado*/ {
+class SearchState extends Equatable {
   
-  final displayManualMarker;
-
-
+  final bool displayManualMarker;
+  
   const SearchState({
     this.displayManualMarker = false
   });
+  
 
   SearchState copyWith({
-    bool? displayManualMarker 
-  })
+    bool? displayManualMarker
+  }) 
   => SearchState(
     displayManualMarker: displayManualMarker ?? this.displayManualMarker
   );
 
+
   @override
-  // TODO: implement props
-  List<Object?> get props => [ displayManualMarker ];
+  List<Object> get props => [ displayManualMarker ];
 
   @override
   String toString(){
-
     return '{ displayManualMarker: $displayManualMarker }';
   }
 

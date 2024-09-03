@@ -47,8 +47,6 @@ class _MapScreenState extends State<MapScreen> {
           return BlocBuilder<MapBloc, MapState>(
             builder: (context, mapState) {        
               Map<String,Polyline>polylines = Map.from( mapState.polylines); // crea una copia
-              final t = mapState.showMyRoute;
-              print('showMyRoute $t');
               if(!mapState.showMyRoute){
 
                 polylines.removeWhere((key,value)  => key == 'myRoute' ); // Elimina la linea de la ruta del mapa

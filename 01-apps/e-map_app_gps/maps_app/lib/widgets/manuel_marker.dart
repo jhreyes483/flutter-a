@@ -12,10 +12,15 @@ class ManuelMarker extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<SearchBloc, SearchState>(
       builder: (context, state) {
+
+        print('ManuelMarker  St');
         print(state);
-       return state.displayManualMarker 
-       ? const _ManuelMarkerBody()
-       : const SizedBox(); // Similar al containser pero no va cambiar 
+        //return const _ManuelMarkerBody();
+        
+        return state.displayManualMarker == true
+        ? const _ManuelMarkerBody()
+        : const SizedBox(); // Similar al container pero no va cambiar 
+      
       },
     );
   }
