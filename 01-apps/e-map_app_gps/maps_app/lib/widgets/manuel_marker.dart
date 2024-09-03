@@ -1,8 +1,31 @@
-import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:animate_do/animate_do.dart';
+
+
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:maps_app/blocs/search/search_bloc.dart';
 
 class ManuelMarker extends StatelessWidget {
   const ManuelMarker({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<SearchBloc, SearchState>(
+      builder: (context, state) {
+        print(state);
+       return state.displayManualMarker 
+       ? const _ManuelMarkerBody()
+       : const SizedBox(); // Similar al containser pero no va cambiar 
+      },
+    );
+  }
+}
+
+
+class _ManuelMarkerBody extends StatelessWidget {
+
+
+  const _ManuelMarkerBody({super.key});
 
   @override
   Widget build(BuildContext context) {

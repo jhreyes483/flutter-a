@@ -20,5 +20,12 @@ class SearchState extends Equatable /* compara las varibles en los cambios de es
   @override
   // TODO: implement props
   List<Object?> get props => [ displayManualMarker ];
+
+  @override
+  String toString(){
+
+    return '{ displayManualMarker: $displayManualMarker }';
+  }
+
 }
 
