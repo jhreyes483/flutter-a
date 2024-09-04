@@ -15,6 +15,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
 
   final LocationBloc locationBloc;
   GoogleMapController? _mapController;
+  LatLng? mapCenter;
 
   MapBloc({required this.locationBloc}) : super(MapState()) { // estado inicial
     on<MapEvent/* cuando se ejecuta el evento */ >((event, emit) {

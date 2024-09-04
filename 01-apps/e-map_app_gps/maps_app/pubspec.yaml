@@ -43,6 +43,7 @@ dependencies:
   bloc: ^8.0.1
   google_maps_flutter:  ^2.1.1
   animate_do: ^2.0.0
+  dio: ^4.0.4
 
 dev_dependencies:
   flutter_test:

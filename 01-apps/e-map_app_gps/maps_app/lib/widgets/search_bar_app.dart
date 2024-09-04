@@ -1,11 +1,33 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:maps_app/blocs/blocs.dart';
 import 'package:maps_app/delegates/delegates.dart';
 import 'package:maps_app/models/models.dart';
+import 'package:maps_app/blocs/search/search_bloc.dart';
+
+//SearchBarApp
 
 class SearchBarApp extends StatelessWidget {
   const SearchBarApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder <SearchBloc, SearchState> (
+      builder: (context, state){
+        return state.displayManualMarker
+        ? const SizedBox()
+        : FadeInDown(
+          duration: const Duration(microseconds: 300),
+          child: const _SearchBarBody()
+          ) ;
+      }
+    );
+  }
+}
+
+class _SearchBarBody extends StatelessWidget {
+  const _SearchBarBody({super.key});
 
   void onSearchResult( BuildContext context, SearchResult result){
     final searchBloc = BlocProvider.of<SearchBloc>(context);

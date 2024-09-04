@@ -3,6 +3,8 @@ import 'package:animate_do/animate_do.dart';
 
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:maps_app/blocs/location/location_bloc.dart';
+import 'package:maps_app/blocs/map/map_bloc.dart';
 import 'package:maps_app/blocs/search/search_bloc.dart';
 
 class ManuelMarker extends StatelessWidget {
@@ -36,6 +38,10 @@ class _ManuelMarkerBody extends StatelessWidget {
   Widget build(BuildContext context) {
     /* iciono de seleccionar ubicacion */
     final size = MediaQuery.of(context).size; // adapta a toda la pantalla 
+    final searchBloc = BlocProvider.of<SearchBloc>(context);
+    final locationBloc = BlocProvider.of<LocationBloc>(context);
+    final mapBloc = BlocProvider.of<MapBloc>(context);
+
     return SizedBox( // similar al container
       width: size.width,
       height: size.height,
@@ -73,8 +79,13 @@ class _ManuelMarkerBody extends StatelessWidget {
                 elevation: 0,
                 height:40,
                 shape: const StadiumBorder(), // redondea los bordes del boton
-                onPressed: () {
-                  // TODO confirmar ubicacion
+                onPressed: () async {
+                  final start = locationBloc.state.lastKnownLocation;
+                  if(start == null ) return;
+
+                  final end = mapBloc.mapCenter;
+                  if(end == null) return;
+                  await searchBloc.getCoorsStartToEnd(start, end);
                 },
               ),
             )
@@ -102,6 +113,9 @@ class _BtnBack extends StatelessWidget {
         child: IconButton(
           icon: const Icon(Icons.arrow_back_ios_new, color: Colors.black),
           onPressed: () {
+            BlocProvider.of<SearchBloc>(context).add(
+              OnDeactivateManualMarkerEvent()
+            );
             // TODO: cancelar el marcador manual
           },
           ),

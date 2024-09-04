@@ -4,6 +4,7 @@ import 'package:maps_app/blocs/blocs.dart';
 import 'package:maps_app/blocs/gps/gps_bloc.dart';
 
 import 'package:maps_app/screens/screens.dart';
+import 'package:maps_app/serices/traffic_service.dart';
 
 void main() {
   runApp( 
@@ -12,7 +13,7 @@ void main() {
         BlocProvider(create: (context) => GpsBloc() ),
         BlocProvider(create: (context) => LocationBloc() ),
         BlocProvider(create: (context) => MapBloc(locationBloc: BlocProvider.of<LocationBloc>(context)) ),
-        BlocProvider(create: (context) => SearchBloc())
+        BlocProvider(create: (context) => SearchBloc( trafficService: TrafficService() ))
       ],
       child: const MapsApp(),
     )

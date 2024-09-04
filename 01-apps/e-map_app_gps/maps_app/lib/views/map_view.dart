@@ -38,7 +38,8 @@ class MapView extends StatelessWidget {
           myLocationButtonEnabled: false,
           polylines: this.polyline, // mostrar o oucultar las line de trayecto
         
-          onMapCreated: ( controller ) => mapBloc.add( OnMapInitialzedEvent(controller)) // establece el controlador en el bloc
+          onMapCreated: ( controller ) => mapBloc.add( OnMapInitialzedEvent(controller)), // establece el controlador en el bloc
+          onCameraMove:(position) => mapBloc.mapCenter = position.target
         
           // TODO Markers
           // TODO polyline
