@@ -85,7 +85,7 @@ class _ManuelMarkerBody extends StatelessWidget {
 
                   final end = mapBloc.mapCenter;
                   if(end == null) return;
-                  await searchBloc.getCoorsStartToEnd(start, end);
+                   // await searchBloc.getCoorsStartToEnd(start, end);
                 },
               ),
             )
