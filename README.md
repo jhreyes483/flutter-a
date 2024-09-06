@@ -44,6 +44,17 @@ https://pub.dev/packages/dio
 - animate_do
 https://pub.dev/packages/animate_d
 
+## app pagos
+
+- iconos
+https://pub.dev/packages/font_awesome_flutter 
+-  bloc
+https://pub.dev/packages/flutter_bloc
+- tarjeta de credito
+https://pub.dev/packages/flutter_credit_card
+
+
+
 - instalar dependencias
 flutterpackages get
 
