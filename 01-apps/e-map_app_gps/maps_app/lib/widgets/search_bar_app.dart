@@ -38,6 +38,8 @@ class _SearchBarBody extends StatelessWidget {
         searchBloc.add(OnActivateManualMarkerEvent());
       return;
     }
+
+
   }
 
   @override

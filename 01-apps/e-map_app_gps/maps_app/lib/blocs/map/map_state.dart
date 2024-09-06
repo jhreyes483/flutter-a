@@ -8,6 +8,7 @@ class MapState extends Equatable {
 
   // Polylines
   final Map<String, Polyline> polylines;
+  final Map<String, Marker> markers;
   /*
   mi_ruta: {
     id: polylineID Google,
@@ -23,23 +24,28 @@ class MapState extends Equatable {
     this.showMyRoute =true,
     this.isMapInitialized = false,
     this.isFollowingUser = true,
-     Map<String, Polyline>? polylines
-  }): polylines = polylines ?? const {};
-  
+    Map<String, Polyline>? polylines,
+    Map<String, Marker>? markers
+  }): 
+  polylines = polylines ?? const {},
+  markers = markers ?? const {};
+
   MapState copyWith({
     bool? showMyRoute,
     bool? isMapInitialized,
     bool? isFollowingUser,
-    Map<String, Polyline>? polylines
+    Map<String, Polyline>? polylines,
+    Map<String, Marker>? markers,
   }) => MapState(
     showMyRoute: showMyRoute ?? this.showMyRoute,
     isMapInitialized:  isMapInitialized ?? this.isMapInitialized,
     isFollowingUser: isFollowingUser ?? this.isFollowingUser,
     polylines: polylines ?? this.polylines,
+    markers: markers ?? this.markers,
   );
 
   @override
-  List<Object> get props => [ isMapInitialized, isFollowingUser,  showMyRoute, polylines ];
+  List<Object> get props => [ isMapInitialized, isFollowingUser,  showMyRoute, polylines, markers ];
 }
 
 

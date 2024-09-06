@@ -4,6 +4,7 @@ import 'package:maps_app/blocs/blocs.dart';
 import 'package:maps_app/blocs/gps/gps_bloc.dart';
 
 import 'package:maps_app/screens/screens.dart';
+import 'package:maps_app/screens/test_marker_screen.dart';
 import 'package:maps_app/serices/traffic_service.dart';
 
 void main() {
@@ -29,7 +30,8 @@ class MapsApp extends StatelessWidget {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'MapsApp',
-      home: LoadingScreen()
+    // home: LoadingScreen()
+    home:TestMarkerScreen()
     );
   }
 }
