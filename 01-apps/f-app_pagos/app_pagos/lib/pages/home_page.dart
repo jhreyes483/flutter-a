@@ -23,7 +23,7 @@ class HomePage extends StatelessWidget {
           )
         ],
       ),
-      body: Stack(
+      body: Stack( //  superponer widgets uno sobre otro
         children: [
 
           Positioned( // Centrar en el eje X
@@ -47,15 +47,17 @@ class HomePage extends StatelessWidget {
                     print(tarjeta.cardHolderName);
                     Navigator.push(context, navegarFadeIn(context, TarjetaPage()));
                   },
-                  child: CreditCardWidget( // paquete importado
-                  cardNumber: tarjeta.cardNumberHidden, 
-                  expiryDate: tarjeta.expiracyDate,
-                  cardHolderName: tarjeta.cardHolderName,
-                  cvvCode: tarjeta.cvv,
-                  showBackView: false,
-                  onCreditCardWidgetChange: (CreditCardBrand ) { 
-                            
-                  },
+                  child: Hero( // animacion
+                    tag: tarjeta.cardNumber, // es un id unco que se utiliza en ambos widget para encontrar la animacion
+                    child: CreditCardWidget( // paquete importado
+                      cardNumber: tarjeta.cardNumberHidden, 
+                      expiryDate: tarjeta.expiracyDate,
+                      cardHolderName: tarjeta.cardHolderName,
+                      cvvCode: tarjeta.cvv,
+                      showBackView: false,
+                      onCreditCardWidgetChange: (CreditCardBrand ) {     
+                      },
+                    ),
                   ),
             
                 );
