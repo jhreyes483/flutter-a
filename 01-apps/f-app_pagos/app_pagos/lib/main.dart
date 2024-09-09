@@ -13,7 +13,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'stripeApp',
-      initialRoute: 'home',
+     // initialRoute: 'home',
+      initialRoute: 'pago_completo',
       routes: {
         'home': (_)          => HomePage(),
         'pago_completo': (_) => PagoCompletoPage(),
