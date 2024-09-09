@@ -1,21 +1,30 @@
-import 'package:app_pagos/data/tarjetas.dart';
-import 'package:app_pagos/helpers/helpers.dart';
-import 'package:app_pagos/pages/tajeta_page.dart';
-import 'package:app_pagos/widget/total_pay_button.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
+
+import 'package:app_pagos/helpers/helpers.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'package:app_pagos/bloc/pagar/pagar_bloc.dart';
+import 'package:app_pagos/data/tarjetas.dart';
+import 'package:app_pagos/pages/tajeta_page.dart';
+import 'package:app_pagos/widget/total_pay_button.dart';
+
+
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final pagarBloc = BlocProvider.of<PagarBloc>(context); 
 
     final size = MediaQuery.of(context).size; //dimenciones de la pantalla
 
     return Scaffold(
       appBar: AppBar (
         title: Text('Pagar'),
+
         actions: [
           IconButton(
             icon: Icon(Icons.add),
@@ -53,6 +62,12 @@ class HomePage extends StatelessWidget {
                 return Listener(
                   onPointerDown: (event) {
                     print(tarjeta.cardHolderName);
+                    
+                    pagarBloc.add(
+                      OnSeleccionartarjeta(tarjeta: tarjeta)
+                    );
+        
+
                     Navigator.push(context, navegarFadeIn(context, TarjetaPage()));
                   },
                   child: Hero( // animacion
