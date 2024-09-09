@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'stripeApp',
      // initialRoute: 'home',
-      initialRoute: 'pago_completo',
+      initialRoute: 'home',
       routes: {
         'home': (_)          => HomePage(),
         'pago_completo': (_) => PagoCompletoPage(),
