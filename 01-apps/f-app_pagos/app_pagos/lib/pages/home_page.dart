@@ -1,4 +1,6 @@
 import 'package:app_pagos/data/tarjetas.dart';
+import 'package:app_pagos/helpers/helpers.dart';
+import 'package:app_pagos/pages/tajeta_page.dart';
 import 'package:app_pagos/widget/total_pay_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
@@ -37,17 +39,26 @@ class HomePage extends StatelessWidget {
             
               itemCount: tarjetas.length,
               itemBuilder: (_, i){
+
                 final tarjeta = tarjetas[i];
-                return CreditCardWidget( // paquete importado
+
+                return Listener(
+                  onPointerDown: (event) {
+                    print(tarjeta.cardHolderName);
+                    Navigator.push(context, navegarFadeIn(context, TarjetaPage()));
+                  },
+                  child: CreditCardWidget( // paquete importado
                   cardNumber: tarjeta.cardNumberHidden, 
                   expiryDate: tarjeta.expiracyDate,
                   cardHolderName: tarjeta.cardHolderName,
                   cvvCode: tarjeta.cvv,
                   showBackView: false,
                   onCreditCardWidgetChange: (CreditCardBrand ) { 
+                            
+                  },
+                  ),
             
-                    },
-                  );
+                );
               }),
           ),
 

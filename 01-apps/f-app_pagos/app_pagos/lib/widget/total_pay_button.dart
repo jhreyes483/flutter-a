@@ -13,8 +13,8 @@ class TotalPayButton extends StatelessWidget {
     return Container(
       width: width,
       height: 100,
-      padding: EdgeInsets.symmetric(horizontal: 15), // evita que el contenido se pegue a los bordes
-      decoration: BoxDecoration(
+      padding: const EdgeInsets.symmetric(horizontal: 15), // evita que el contenido se pegue a los bordes
+      decoration: const BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(30),
@@ -25,7 +25,7 @@ class TotalPayButton extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Column(
+          const Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -46,18 +46,18 @@ class _BtnPay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return true 
-    ? builBotonTarjeta(context)
+    ? buildBotonTarjeta(context)
     : buildAppleAndGooglePay(context);
   }
 
- Widget builBotonTarjeta(BuildContext context) {
+  Widget buildBotonTarjeta(BuildContext context) {
     return MaterialButton(
       height: 45,
       minWidth: 170,
-      shape: StadiumBorder(),
+      shape: const StadiumBorder(),
       elevation: 0,
       color: Colors.black,
-      child: Row(
+      child: const Row(
         children: [
           Icon( FontAwesomeIcons.solidCreditCard, color: Colors.white),
           Text('  Pagar', style: TextStyle(color: Colors.white, fontSize: 22))
@@ -75,7 +75,7 @@ class _BtnPay extends StatelessWidget {
       shape: StadiumBorder(),
       elevation: 0,
       color: Colors.black,
-      child: Row(
+      child: const Row(
         children: [
           Icon( FontAwesomeIcons.google, color: Colors.white),
           Text(' Pay', style: TextStyle(color: Colors.white, fontSize: 22))
