@@ -11,6 +11,10 @@ mostrarLoading( BuildContext context ){
     );
 }
 
+void cerrarLoading(BuildContext context) {
+  Navigator.of(context).pop();
+}
+
 mostrarAlerta( BuildContext context, String titulo, String mensaje){
   showDialog(
     context: context, 
@@ -27,5 +31,5 @@ mostrarAlerta( BuildContext context, String titulo, String mensaje){
       ],
     )
     );
-
 }
+

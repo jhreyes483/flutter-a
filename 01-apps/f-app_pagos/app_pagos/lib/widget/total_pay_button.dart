@@ -1,3 +1,6 @@
+import 'package:app_pagos/helpers/helpers.dart';
+import 'package:app_pagos/models/payment_intent_response.dart';
+import 'package:app_pagos/services/stripe_service.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,6 +14,8 @@ class TotalPayButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
+    final pagarBloc = BlocProvider.of<PagarBloc>(context); 
+
 
     return Container(
       width: width,
@@ -77,7 +82,23 @@ class _BtnPay extends StatelessWidget {
         ],
       ),
 
-      onPressed: (){}
+      onPressed: () async{
+        final stripeService = new StripeService();
+        final state        = BlocProvider.of<PagarBloc>(context).state;
+
+        final resp = await stripeService.pagarConNuevaTarjetaExistente(
+          amount: state.montoPagarString, 
+          currency: state.moneda,
+          //card : state.tarjeta
+        );
+
+        if(resp.ok){
+          mostrarAlerta(context, 'Ok','ok con tarjeta');
+        }
+
+
+
+      }
       );
   }
 
@@ -95,7 +116,25 @@ class _BtnPay extends StatelessWidget {
         ],
       ),
 
-      onPressed: (){}
+      onPressed: () async{
+        mostrarLoading(context);
+        final stripeService = new StripeService();
+        final state         = BlocProvider.of<PagarBloc>(context).state;
+        final resp          = await stripeService.pagarConNuevaTarjetaExistente(
+          amount: state.montoPagarString, 
+          currency: state.moneda,
+          //card : state.tarjeta
+        );
+
+        if(resp.ok){
+          cerrarLoading(context);
+          mostrarAlerta(context, 'Ok','ok con tarjeta 2');
+        }else{
+          cerrarLoading(context);
+          mostrarAlerta(context, 'Error','Algo salio mal');
+        }
+        //Navigator.of(context).pop();
+      }
       );
   }
 }

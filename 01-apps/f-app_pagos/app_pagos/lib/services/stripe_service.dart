@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:app_pagos/models/payment_intent_response.dart';
 import 'package:app_pagos/models/stripe_custom_response.dart';
 import 'package:meta/meta.dart';
 import 'package:dio/dio.dart';
@@ -18,6 +21,13 @@ class StripeService {
   static String _secretKey = 'sk_test_51HIgBqKmrePqgf9DSVeUNw7GfLlNJBlwn2JWDBVdimhHCO7N2fW8vgQBWUBKYontobwkXSWXv3hTUPVtZ5PHVKXz007MjU1qPW';
   String _apiKey           = 'pk_test_51HIgBqKmrePqgf9DEW9flGs2Sy1ZKBnIYrCnw8DcMnSc5D0rvB13IETHc3mUZoPUePx4eZ50SvVFSn74RaK5WF1B00EcvZTSxb';
 
+  final headerOptions = new Options(
+    contentType: Headers.formUrlEncodedContentType,
+    headers: {
+      'Authorization':'Bearer $_secretKey'
+    }
+  );
+
 void init() {
   /*
     // Configura Stripe con tu clave pública
@@ -36,6 +46,12 @@ void init() {
   }) async { 
 
     try {
+      final resp = await this._crearPaymentIntent(
+        amount: amount, 
+        currency: currency
+      );
+
+
       /*
       // Crear PaymentIntent en tu servidor (debes tener un endpoint para esto)
       final paymentIntentResponse = await _crearPaymentIntent(amount: amount, currency: currency);
@@ -62,7 +78,12 @@ void init() {
     required String amount,
     required String currency,
   }) async { 
-
+    /*
+          final resp = await this._crearPaymentIntent(
+        amount: amount, 
+        currency: currency
+      );
+  */
     /*
     // Crear PaymentIntent en tu servidor
     final paymentIntentResponse    = await _crearPaymentIntent(amount: amount, currency: currency);
@@ -86,10 +107,21 @@ void init() {
 
   }
 
-  Future pagarApplePayGooglePay({
+  Future  <StripeCustomResponse> pagarApplePayGooglePay({
     required String amount,
     required String currency,
   }) async { 
+    return StripeCustomResponse(
+        ok: true,
+        msg: 'test'
+    );
+  }
+
+  Future <StripeCustomResponse> pagarConNuevaTarjetaExistente({
+    required String amount,
+    required String currency,
+  }) async { 
+    await Future.delayed(Duration(seconds: 2));
     return StripeCustomResponse(
         ok: true,
         msg: 'test'
@@ -100,6 +132,32 @@ void init() {
     required String amount,
     required String currency,
   }) async { 
+
+    try{
+      final dio = Dio();
+      final data = {
+        'amount': amount,
+        'currency': currency
+      };
+
+      final resp = await dio.post(
+        _paymentApiUrl,
+        data: data,
+        options: headerOptions
+      );
+
+     // return PaymentIntentResponse.fromJson(resp.data);
+
+
+    }catch(e){
+      print('Error en intento. ${e.toString()}');
+      return PaymentIntentResponse(
+        status: '400',
+
+      );
+
+    }
+  
     return StripeCustomResponse(
         ok: true,
         msg: 'test'

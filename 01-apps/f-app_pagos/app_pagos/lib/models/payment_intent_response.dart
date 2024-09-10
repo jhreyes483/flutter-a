@@ -135,7 +135,7 @@ class PaymentIntentResponse {
         "canceled_at": canceledAt,
         "cancellation_reason": cancellationReason,
         "capture_method": captureMethod,
-        "charges": charges.toJson(),
+
         "client_secret": clientSecret,
         "confirmation_method": confirmationMethod,
         "created": created,
@@ -145,12 +145,12 @@ class PaymentIntentResponse {
         "invoice": invoice,
         "last_payment_error": lastPaymentError,
         "livemode": livemode,
-        "metadata": metadata.toJson(),
+
         "next_action": nextAction,
         "on_behalf_of": onBehalfOf,
         "payment_method": paymentMethod,
-        "payment_method_options": paymentMethodOptions.toJson(),
-        "payment_method_types": List<dynamic>.from(paymentMethodTypes.map((x) => x)),
+
+
         "receipt_email": receiptEmail,
         "review": review,
         "setup_future_usage": setupFutureUsage,
@@ -176,8 +176,8 @@ class Charges {
     String? object;
     List<dynamic>? data;
     bool? hasMore;
-    int totalCount;
-    String url;
+    int? totalCount;
+    String? url;
 
     factory Charges.fromJson(Map<String, dynamic> json) => Charges(
         object: json["object"],
@@ -189,7 +189,7 @@ class Charges {
 
     Map<String, dynamic> toJson() => {
         "object": object,
-        "data": List<dynamic>.from(data.map((x) => x)),
+       // "data": List<dynamic>.from(data.map((x) => x)),
         "has_more": hasMore,
         "total_count": totalCount,
         "url": url,
