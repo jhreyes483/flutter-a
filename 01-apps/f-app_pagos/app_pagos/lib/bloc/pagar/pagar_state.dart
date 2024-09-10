@@ -7,6 +7,8 @@ class PagarState {
   final bool tarjetaActiva;
   final TarjetaCredito? tarjeta;
 
+  String get montoPagarString => '${ (this.montoPagar * 100).floor() }';
+
 
 static final TarjetaCredito tarjetaDefaul = TarjetaCredito(
     cardNumberHidden: '4242',

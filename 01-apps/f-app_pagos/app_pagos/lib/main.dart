@@ -1,4 +1,5 @@
 // mateapp
+import 'package:app_pagos/services/stripe_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -15,6 +16,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
+    StripeService().init();
+    
     return  MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => PagarBloc() ), // usa el bloc en el context de manera global

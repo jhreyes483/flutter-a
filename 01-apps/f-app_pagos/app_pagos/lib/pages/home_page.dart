@@ -1,4 +1,5 @@
 
+import 'package:app_pagos/services/stripe_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
 
@@ -17,6 +18,8 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final stripeService =  StripeService();
+
     final pagarBloc = BlocProvider.of<PagarBloc>(context); 
 
     final size = MediaQuery.of(context).size; //dimenciones de la pantalla
@@ -29,13 +32,26 @@ class HomePage extends StatelessWidget {
           IconButton(
             icon: Icon(Icons.add),
             onPressed: () async{
+              final amount   =  pagarBloc.state.montoPagarString;
+              final currency =  pagarBloc.state.moneda;
+
+              final resp = await stripeService.pagarConNuevaTarjeta(
+                amount: amount,
+                currency: currency
+              );
+
+              if(resp.ok){
+                mostrarAlerta(context, 'Ok','Todo correcto');
+              }else{
+                mostrarAlerta(context, 'Ok','Algo salio mal');
+              }
               /*
               laoding 
               mostrarLoading(context);
               await Future.delayed(Duration(seconds: 1)); // tiempo de la alerta
               Navigator.pop(context); // cierre de la alerta
               */
-              mostrarAlerta(context, 'Hola','Mundo');
+              
             }
           )
         ],
