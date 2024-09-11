@@ -55,6 +55,14 @@ https://pub.dev/packages/flutter_credit_card
 
 ## crear paquetes
 flutter create --template=package route_transitions
+## formatear archivo
+flutter format lib/route_transitions.dart o dart format lib/route_transitions.dart
+
+
+## publica paquetes check
+flutter pub publish --dry-run
+## publica paquetes
+flutter pub publish
 
 
 
