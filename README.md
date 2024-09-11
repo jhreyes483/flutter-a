@@ -41,6 +41,13 @@ https://www.mapbox.com/
 
 - dio
 https://pub.dev/packages/dio
+- http
+https://pub.dev/packages/http
+- google sign in
+https://pub.dev/packages/google_sign_in
+- iconos font_awesome
+https://pub.dev/packages/font_awesome_flutter
+
 - animate_do
 https://pub.dev/packages/animate_d
 
@@ -52,6 +59,8 @@ https://pub.dev/packages/font_awesome_flutter
 https://pub.dev/packages/flutter_bloc
 - tarjeta de credito
 https://pub.dev/packages/flutter_credit_card
+
+
 
 
 
