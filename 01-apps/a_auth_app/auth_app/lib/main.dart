@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 void main() => runApp(const MyApp());
 
@@ -11,22 +11,44 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Material App',
-        home: Scaffold(
+      home: Scaffold(
         appBar: AppBar(
-          title: const Text('Home Page'),
+          backgroundColor: Colors.blue, // Color de fondo de la AppBar
+          foregroundColor: Colors.white, // Color del texto y los íconos en la AppBar
+          title: const Text('AuthApp - google - Apple' ),
+          actions: [
+            IconButton(
+                icon: const Icon(FontAwesomeIcons.doorOpen), onPressed: () {})
+          ],
         ),
         body: Container(
-          color: Colors.blueAccent, // Color de fondo del Container
+          padding: EdgeInsets.all(10),
+          color: Colors.white, // Color de fondo del Container
           child: Center(
-            child: Text(
-              'Hello World!',
-              style: TextStyle(
-                fontSize: 24,
-                color: Colors.white,
-              ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                MaterialButton(
+                    splashColor: Colors.transparent, 
+                    minWidth: double.infinity, // toma todo el ancho
+                    height: 40,
+                    color: Colors.red,
+                    shape: RoundedRectangleBorder( borderRadius: BorderRadius.circular(8)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(FontAwesomeIcons.google, color: Colors.white),
+                        Text(' Sign in whit Google', style: TextStyle(color: Colors.white, fontSize: 17),)
+                      ],
+                    ), 
+
+                    onPressed: () {}
+                )
+              ],
             ),
           ),
         ),
+      ),
       // initialRoute: 'page1',
       /*
       routes: {
@@ -34,7 +56,6 @@ class MyApp extends StatelessWidget {
         //'page2': (context) => Page2(),
       },
       */
-    )  
     );
   }
 }
