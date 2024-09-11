@@ -1,6 +1,6 @@
 name: custom_route_transitions_jrn
-description: "A new Flutter package project."
-version: 0.0.1
+description: "Este paquete ayuda a las transiciones entre pantallas de forma elegante y fácil."
+version: 0.0.2
 homepage: https://github.com/jhreyes483/flutter-avanzado/tree/paquetes_propios/01-apps/a-paquete/paquete/route_transitions
 
 environment:

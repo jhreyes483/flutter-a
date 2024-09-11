@@ -1,16 +1,19 @@
 import "package:flutter/material.dart";
 
+/// Tipos de animaciones
 enum AnimationType {
   normal,
   fadeIn
 }
 
+/// Main class
 class RouteTransitions {
   final BuildContext context;
   final Widget child;
   final AnimationType animation;
   final Duration duration;
   final bool replacement;
+
 
   RouteTransitions( {
     this.duration =  const Duration(seconds: 2),
