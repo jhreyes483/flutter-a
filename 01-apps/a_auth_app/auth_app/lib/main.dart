@@ -34,11 +34,11 @@ class MyApp extends StatelessWidget {
                     height: 40,
                     color: Colors.red,
                     shape: RoundedRectangleBorder( borderRadius: BorderRadius.circular(8)),
-                    child: Row(
+                    child: const Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(FontAwesomeIcons.google, color: Colors.white),
-                        Text(' Sign in whit Google', style: TextStyle(color: Colors.white, fontSize: 17),)
+                        Text(' Sign in whit Google', style: TextStyle(color: Colors.white, fontSize: 17))
                       ],
                     ), 
 
