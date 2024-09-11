@@ -53,6 +53,10 @@ https://pub.dev/packages/flutter_bloc
 - tarjeta de credito
 https://pub.dev/packages/flutter_credit_card
 
+## crear paquetes
+flutter create --template=package route_transitions
+
+
 
 
 - instalar dependencias
