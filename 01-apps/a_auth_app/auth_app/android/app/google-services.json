@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "621528570083",
+    "project_id": "flutter-signin-6510d",
+    "storage_bucket": "flutter-signin-6510d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:621528570083:android:5d0bf75e1b9cde4e6bcdd6",
+        "android_client_info": {
+          "package_name": "com.javierrn.auth_app_jrn"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD55KljGoK30xvikMnhRYuT9J2x-gWgLoA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
