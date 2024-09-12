@@ -1,3 +1,4 @@
+import 'package:auth_app/services/google_signin_service.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -42,7 +43,9 @@ class MyApp extends StatelessWidget {
                       ],
                     ), 
 
-                    onPressed: () {}
+                    onPressed: ()  {
+                      GoogleSignInService.signInWithGoogle();
+                    }
                 )
               ],
             ),
