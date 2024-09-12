@@ -19,7 +19,10 @@ class MyApp extends StatelessWidget {
           title: const Text('AuthApp - google - Apple' ),
           actions: [
             IconButton(
-                icon: const Icon(FontAwesomeIcons.doorOpen), onPressed: () {})
+                icon: const Icon(FontAwesomeIcons.doorOpen), 
+                onPressed: () {
+                  GoogleSignInService.signOut();
+                })
           ],
         ),
         body: Container(

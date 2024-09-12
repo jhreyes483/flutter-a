@@ -24,4 +24,17 @@ class GoogleSignInService {
 
   }
 
+  static Future<GoogleSignInAccount?> signOut() async {
+    try{
+
+     await _googleSignIn.signOut();
+
+    }catch(e){
+      print('Error en google signOut');
+      print(e);
+      return null;
+    }
+
+  }
+
 }
